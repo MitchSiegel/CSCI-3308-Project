@@ -5,3 +5,5 @@ Ethan Pinnick
 Ian Scheuermann
 Mitch Siegel
 Caleb Schroder
+
+https://discord.gg/2g7sjfge
