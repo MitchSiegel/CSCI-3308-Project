@@ -3,6 +3,7 @@ const express = require('express');
 
 const app = express();
 const pgp = require('pg-promise')();
+
 // database configuration
 const dbConfig = {
     host: 'db', // the database server
@@ -12,6 +13,8 @@ const dbConfig = {
     password: process.env.POSTGRES_PASSWORD, // the password of the user account
 };
 
+
+//init pgp with our db config
 const db = pgp(dbConfig);
 
 //test your database
@@ -24,11 +27,12 @@ db.connect()
         console.log('ERROR:', error.message || error);
 })
 
-
+//test page for now
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+//listen for requests
 app.listen(3000, () => {
     console.log('Listening on port 3000');
 });
