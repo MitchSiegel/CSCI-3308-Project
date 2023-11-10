@@ -23,9 +23,34 @@ describe('Server!', () => {
       });
   });
 
+  //TODO cases
+  it('positive : /login', done => {
+    chai
+      .request(server)
+      .post('/login')
+      .send({ userName: 'John Doe', password: '1212' })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equals('Success');
+        done();
+      });
+  });
+  //Negative case
+  it('positive : /login', done => {
+    chai
+      .request(server)
+      .post('/login')
+      .send({ userName: 'Jane R', password: '1111' })
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equals('Invalid input');
+        done();
+      });
+  });
+
   // ===========================================================================
   // TO-DO: Part A register unit test case
-  it('positive : /register', done => {
+  it('positive : /testRegister', done => {
     chai
       .request(server)
       .post('/testRegister')
@@ -38,7 +63,7 @@ describe('Server!', () => {
   //We are checking POST /register API by passing the user info in in incorrect manner (name/pass cannot be null). This test case should pass and return a status 200 along with a "Invalid input" message.
 
 
-it('Negative : /register. Checking missing fields', done => {
+it('Negative : /testRegister. Checking missing fields', done => {
   chai
     .request(server)
     .post('/testRegister')
