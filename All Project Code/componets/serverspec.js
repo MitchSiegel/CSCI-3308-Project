@@ -24,7 +24,7 @@ describe('Server!', () => {
   });
 
   // ===========================================================================
-  // TO-DO: Part A Login unit test case
+  // TO-DO: Part A register unit test case
   it('positive : /register', done => {
     chai
       .request(server)
@@ -36,7 +36,7 @@ describe('Server!', () => {
         done();
       });
   });
-  //We are checking POST /add_user API by passing the user info in in incorrect manner (name/pass cannot be null). This test case should pass and return a status 200 along with a "Invalid input" message.
+  //We are checking POST /register API by passing the user info in in incorrect manner (name/pass cannot be null). This test case should pass and return a status 200 along with a "Invalid input" message.
 it('Negative : /register. Checking invalid name', done => {
   chai
     .request(server)
