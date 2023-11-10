@@ -39,7 +39,6 @@ app.use(bodyParser.json()); // specify the usage of JSON for parsing request bod
 
 
 
-
 // database configuration
 const dbConfig = {
     host: 'db', // the database server
@@ -87,6 +86,35 @@ app.post('/register', async (req, res) => {
     catch (error) {
         console.error('Error during registration');
         res.redirect('/register');
+    }
+});
+
+//test route for registering. this is a mock route and any user will be added and then removed from the database
+app.post("/testRegister", async (req, res) => {
+    try {
+        let username = req.body.username;
+        let password = req.body.password;
+
+        if (!username || !password) {
+            return res.status(400).send({ message: 'Invalid input' });
+        }
+
+        //hash the password using bcrypt library
+        const hash = await bcrypt.hash(password, 10);
+
+        //insert user into the database
+        var insertQuery = `INSERT INTO users (username, password) VALUES ('${username}', '${hash}');`;
+        await db.query(insertQuery);
+
+        //immediately remove the user
+        var deleteQuery = `DELETE FROM users WHERE username='${username}';`;
+        await db.query(deleteQuery);
+
+        //send success response
+        res.status(200).send({ message: 'User registered and removed for test' });
+    } catch (error) {
+        console.error('Error during mock registration:', error);
+        res.status(500).send({ message: 'Error during registration' });
     }
 });
 
