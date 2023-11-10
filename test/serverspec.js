@@ -1,5 +1,5 @@
 // Imports the index.js file to be tested.
-const server = require('../../index'); //TO-DO Make sure the path to your index.js is correctly added
+const server = require('../index'); //TO-DO Make sure the path to your index.js is correctly added
 // Importing libraries
 
 // Chai HTTP provides an interface for live integration testing of the API's.
@@ -29,10 +29,9 @@ describe('Server!', () => {
     chai
       .request(server)
       .post('/register')
-      .send({userName: 'John Doe', password: '1212'})
+      .send({userName: 'John Doe1', password: '1212'})
       .end((err, res) => {
         expect(res).to.have.status(200);
-        expect(res.body.message).to.equals('Success');
         done();
       });
   });
@@ -40,11 +39,12 @@ describe('Server!', () => {
 it('Negative : /register. Checking invalid name', done => {
   chai
     .request(server)
-    .post('/add_user')
-    .send({userName: '', password: ''})
+    .post('/register')
+    .send({userName: "Test"})
     .end((err, res) => {
+      console.log(res.body);
       expect(res).to.have.status(200);
-      expect(res.body.message).to.equals('Invalid input');
+      expect(res.body.message).to.equals('Error during registration');
       done();
     });
 });

@@ -24,10 +24,6 @@ app.use(
     })
 );
 
-// middleware setup
-app.set('view engine', 'ejs'); // set the view engine to EJS
-app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
-app.use(auth);
 // Authentication
 const auth = (req, res, next) => {
     if (!req.session.user) {
@@ -36,6 +32,11 @@ const auth = (req, res, next) => {
     }
     next();
 };
+
+// middleware setup
+app.set('view engine', 'ejs'); // set the view engine to EJS
+app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
+
 
 
 
@@ -84,11 +85,9 @@ app.post('/register', async (req, res) => {
         res.redirect('/login')
     }
     catch (error) {
-
-        console.error('Error during registration:', error);
+        console.error('Error during registration');
         res.redirect('/register');
     }
-
 });
 
 app.get('/login', (req, res) => {
