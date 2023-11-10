@@ -8,7 +8,27 @@ const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 const bcrypt = require('bcrypt'); //  To hash passwords
 
-// Authentication Middleware.
+
+//initialize session variables
+app.use(
+    session({
+        secret: process.env.SESSION_SECRET,
+        saveUninitialized: false,
+        resave: false,
+    })
+);
+
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
+
+// middleware setup
+app.set('view engine', 'ejs'); // set the view engine to EJS
+app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
+app.use(auth);
+// Authentication
 const auth = (req, res, next) => {
     if (!req.session.user) {
         // Default to login page.
@@ -17,10 +37,7 @@ const auth = (req, res, next) => {
     next();
 };
 
-// middleware setup
-app.set('view engine', 'ejs'); // set the view engine to EJS
-app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
-app.use(auth);
+
 
 // database configuration
 const dbConfig = {
@@ -33,6 +50,7 @@ const dbConfig = {
 
 //init pgp with our db config
 const db = pgp(dbConfig);
+
 
 //test your database
 db.connect()
@@ -91,7 +109,7 @@ app.post('/login', async (req, res) => {
             req.session.user = user;
             req.session.save(() => {
 
-                res.redirect('/discover');
+                res.redirect('/home');
             });
         } else {
 
@@ -105,6 +123,18 @@ app.post('/login', async (req, res) => {
 
 });
 
+/* authenticated routes */
+
+app.get("/home", auth, async (req, res) => {
+    res.end("Welcome to the home page!");
+});
+
+
+app.get("/movies/:id", auth, async (req, res) => {
+    //TODO get movie details from database
+    //TODO render movie details page
+    res.end("Welcome to the movie details page!");
+});
 
 //listen for requests
 module.exports = app.listen(3000, () => {
