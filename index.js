@@ -4,6 +4,18 @@ const express = require('express');
 const app = express();
 const pgp = require('pg-promise')();
 
+// Authentication Middleware.
+const auth = (req, res, next) => {
+    if (!req.session.user) {
+        // Default to login page.
+        return res.redirect('/login');
+    }
+    next();
+};
+
+// Authentication Required
+app.use(auth);
+
 // database configuration
 const dbConfig = {
     host: 'db', // the database server
@@ -25,14 +37,74 @@ db.connect()
     })
     .catch(error => {
         console.log('ERROR:', error.message || error);
-})
+    })
 
 //test page for now
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get('/welcome', (req, res) => {
+    res.json({status: 'success', message: 'Welcome!'});
+  });
+
+app.get('/register', (req, res) => {
+    res.render('pages/register')
 });
 
+// Register
+app.post('/register', async (req, res) => {
+    //hash the password using bcrypt library
+    try {
+        const hash = await bcrypt.hash(req.body.password, 10);
+        var username = req.body.username;
+
+        // To-DO: Insert username and hashed password into the 'users' table
+        var insertQuery = `insert into users (username, password) VALUES ('${username}', '${hash}');`
+        await db.query(insertQuery)
+        res.redirect('/login')
+    }
+    catch (error) {
+
+        console.error('Error during registration:', error);
+        res.redirect('/register');
+    }
+
+});
+
+app.get('/login', (req, res) => {
+    res.render('pages/login')
+});
+
+app.post('/login', async (req, res) => {
+    var username = req.body.username;
+    const password = req.body.password;
+
+    var user_Query = `select * from users where username = '${username}';`;
+    const user = await db.oneOrNone(user_Query);
+    if (user) {
+
+        const match = await bcrypt.compare(password, user.password);
+        if (match) {
+
+            req.session.user = user;
+            req.session.save(() => {
+
+                res.redirect('/discover');
+            });
+        } else {
+
+            res.render('login.ejs', { error: 'Incorrect username or password' });
+        }
+
+    }
+    else {
+        res.redirect('/register');
+    }
+
+});
+
+
+
+
+
 //listen for requests
-app.listen(3000, () => {
+module.exports = app.listen(3000, () => {
     console.log('Listening on port 3000');
 });
