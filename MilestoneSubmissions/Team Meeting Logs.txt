@@ -1,1 +1,30 @@
+Scribe:Caleb
+
+Week of 11/6 Team Meeting for Project
+
+-Figured out communication, set up group chat and discord, currently meeting on discord.
+-Overview of general structure and ideas of project. Thought of multiple ideas for a project, landed on a movie review website. Thought of basic functionality
+-Figured out version control, made app name: #criticism, came up with a base app description and how it would function in the most basic way possible.
+-Create the vision statement for the project
+-Worked on building directory, added docker files, .env, json files, gitignore, readme, etc.
+-Built use case diagram 
+-Built wireframe for 4 pages, view movie, home page, register page, login page
+-Made project board for different pages and sections of code
+-Began basic ideas of finding out who is good at what. For example Mitch and Ian are better at backend, Ethan and Caleb are better at frontend.
+-By the end of the meeting we verified that we had all of the files for lab 10 and went over the rubric for the week, and began planning for the next week.
+
+
+Week of 11/13 Team Meeting for Project
+
+-Assignments of work for the week: Caleb: Scribe for meetings, partials and bootstrap on register page, login page, bootstrap form for reg page and home page search bar, create basic html table for list of movies on homepage  Ethan: Home page and view page frontend html/bootstrap code  Ian: Submitting review backend, route on index.js, etc.   Mitch: Search backend, login page testing.
+-First topic reorganizing our structure of the files, moved milestone submissions to the correct folder, planned to reorganize the main project code as well.
+-Overviewed lab 11, testing almost done according to Mitch, little more work to do with that lab. 
+-Began assigning, Caleb and Ethan handling ejs and more front end code, figuring out what Mitch and Ian can do.
+-Group wants to get this done this week, what do we need to do for this week? Mitch already added the movies last week, so the database is done. We need to also add routes in the index.js for selecting a movie. 
+-Then discussed assignments backend mostly to Ian and Mitch , frontend to Caleb and Ethan
+-How to handle certain front end, bootstraps forms for login and register page, just a basin table for now for the list of movies? Other basic ideas.
+-How for Ian and mitch to handle routes and backend, and what are the specific things that need to be done before friday
+-Planned on potential extra meetings through the week through our discord communication.
+-Everyone planned on attending recitation on friday, extra credit would be very useful and it would be another good chance to get work done so we have the project done in time for the extra credit.
+-Added assignees to all of the project board stories and such, everything now assigned.
 
