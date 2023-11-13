@@ -37,8 +37,6 @@ const auth = (req, res, next) => {
 app.set('view engine', 'ejs'); // set the view engine to EJS
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 
-
-
 // database configuration
 const dbConfig = {
     host: 'db', // the database server
@@ -98,7 +96,6 @@ app.post("/testRegister", async (req, res) => {
         if (!username || !password) {
             return res.status(400).send({ message: 'Invalid input' });
         }
-
         //hash the password using bcrypt library
         const hash = await bcrypt.hash(password, 10);
 
@@ -126,7 +123,7 @@ app.post('/login', async (req, res) => {
     var username = req.body.username;
     const password = req.body.password;
 
-    var user_Query = `select * from users where username = '${username}';`;
+    var user_Query = `SELECT * FROM users WHERE username = '${username}';`;
     const user = await db.oneOrNone(user_Query);
     if (user) {
 
@@ -150,12 +147,41 @@ app.post('/login', async (req, res) => {
 
 });
 
+//testing route for login
+app.post('/testLogin', async (req, res) => {
+    try {
+        var username = req.body.username;
+        const password = req.body.password;
+
+        if (!username || !password) {
+            return res.status(400).send({ message: 'Invalid input' });
+        }
+    
+        const user = await db.oneOrNone(`SELECT * FROM users WHERE username = '${username}';`);
+        if(user){
+            const match = await bcrypt.compare(password, user.password);
+            if(match){
+                return res.status(200).send({ message: 'User logged in' });
+            }
+            else{
+                return res.status(400).send({ message: 'Incorrect password' });
+            }
+        }else{
+            return res.status(400).send({ message: 'User does not exist' });
+        }
+    }
+    catch(error){
+        console.error('Error during mock registration:', error);
+        res.status(500).send({ message: 'Error during registration' });
+    }
+});
+
+
 /* authenticated routes */
 
 app.get("/home", auth, async (req, res) => {
     res.end("Welcome to the home page!");
 });
-
 
 app.get("/movies/:id", auth, async (req, res) => {
     //TODO get movie details from database
