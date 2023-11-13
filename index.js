@@ -156,9 +156,10 @@ app.post('/testLogin', async (req, res) => {
         if (!username || !password) {
             return res.status(400).send({ message: 'Invalid input' });
         }
-    
+        //get user from database
         const user = await db.oneOrNone(`SELECT * FROM users WHERE username = '${username}';`);
         if(user){
+            //check salted password hash
             const match = await bcrypt.compare(password, user.password);
             if(match){
                 return res.status(200).send({ message: 'User logged in' });
@@ -176,12 +177,37 @@ app.post('/testLogin', async (req, res) => {
     }
 });
 
+//movie search
+app.get("/search", async (req, res) => {
+    try{
+        const movieName = req.query.movieName;
+        //movie name is required
+        if(!movieName){
+            return res.status(400).send({ message: 'movieName query expected.' });
+        }
+        //build query
+        const query = `SELECT * FROM movies WHERE title LIKE $1;`;
+        //build values array
+        const values = [`%${movieName}%`];
+        //execute query
+        const movies = await db.query(query, values); 
+        //send results
+        res.status(200).send({ movies: movies});
+    }
+    catch(error){
+        console.error('Error during movie search:', error);
+        res.status(500).send({ message: 'Error during movie search' });
+    }
+});
+
 
 /* authenticated routes */
 
 app.get("/home", auth, async (req, res) => {
     res.end("Welcome to the home page!");
 });
+
+
 
 app.get("/movies/:id", auth, async (req, res) => {
     //TODO get movie details from database
