@@ -203,8 +203,8 @@ app.get("/search", async (req, res) => {
 
 /* authenticated routes */
 
-app.get("/home", auth, async (req, res) => {
-    res.end("Welcome to the home page!");
+app.get("/home", async (req, res) => {
+    res.render('pages/home');
 });
 
 
