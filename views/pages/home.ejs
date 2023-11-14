@@ -10,13 +10,12 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+  <!-- ignore all of this I will move it -->
   <style>
     html,
     body {
       height: 100%;
     }
-
-
 
     .container {
       width: 100%;
@@ -112,13 +111,17 @@
 
     .star-rating label::before {
       display: inline-block;
-      /* Ensures proper padding around the stars */
+    }
+    #emote{
+      margin-top: 10px;
+      margin-bottom:10px;
     }
   </style>
 </head>
 
 <body>
 
+  <!-- Navbar (will be replaced with partials later) -->
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Movie Reviews</a>
@@ -126,62 +129,13 @@
   </nav>
 
   <div class="container mt-3">
-    <!-- Featured Movies Section -->
-    <h2 class="mb-3">Featured Movies</h2>
-    <div class="d-flex justify-content-center align-items-center featured" style="">
-      <div class="row row-cols-1 row-cols-md-2 g-4">
-        <!-- Movie Card -->
-        <div class="featuredMovie col">
-          <div class="card mb-3" style="max-width: 450px;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="https://image.tmdb.org/t/p/original//A4j8S6moJS2zNtRR8oWF08gRnL5.jpg"
-                  class="img-fluid rounded-start" alt="Five Nights at Freddy's">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">Five Nights at Freddy's</h5>
-                  <p class="card-text">Recently fired and desperate for work, a troubled young man named Mike agrees to
-                    take a position as a night security guard at an abandoned theme restaurant...</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="featuredMovie col">
-          <div class="card mb-3" style="max-width: 450px;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="https://image.tmdb.org/t/p/original//A4j8S6moJS2zNtRR8oWF08gRnL5.jpg"
-                  class="img-fluid rounded-start" alt="Five Nights at Freddy's">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">Five Nights at Freddy's</h5>
-                  <p class="card-text">Recently fired and desperate for work, a troubled young man named Mike agrees to
-                    take a position as a night security guard at an abandoned theme restaurant...</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Duplicate the above block for the other featured movies, changing the data as necessary -->
-      </div>
-    </div>
+    <!-- Ethan this is where the featured movies should go-->
   </div>
 
-  <!-- Searching Feature -->
+  <!-- Searching Feature (to-do) -->
   <div class="container mt-3">
-    <div class="row">
-      <div class="col-12 mb-3">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for movies" aria-label="Search for movies"
-            aria-describedby="button-addon2">
-          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-        </div>
-      </div>
-    </div>
   </div>
+
   <!-- Search results (hard coded for now for pop-up)-->
   <div class="container mt-3">
     <!-- to be templated -->
@@ -211,6 +165,10 @@
           <div id="starRating" class="star-rating">
             <!-- Generate stars using JavaScript -->
           </div>
+        </div>
+        <!-- centered emoji -->
+        <div class="text-center" id="emote">
+          <i class="fa-solid fa-face-sad-tear fa-2x"></i>
         </div>
         <div class="modal-footer">
           <button type="button" id="submitReview" class="btn btn-primary" disabled>Submit Review</button>
@@ -249,15 +207,32 @@
       // Add half star
       starRatingDiv.innerHTML += `
       <input type="radio" id="starHalf" name="rating" value="0.5" />
-      <label for="starHalf" class="half"></label>`;
+      <label id="half" for="starHalf" class="half"></label>`;
       // Add 6 full stars
       for (let i = 6; i >= 1; i--) {
         starRatingDiv.innerHTML += `
       <input type="radio" id="star${i}" name="rating" value="${i}" />
-      <label for="star${i}"></label>`;
+      <label id="label${i}" for="star${i}"></label>`;
+      }
+      let emote = document.getElementById('emote');
+
+      for (let i = 6; i >= 1; i--) {
+        //add mouseover event listener to change the emote
+        document.querySelector(`#label${i}`).addEventListener("mouseover", function(){
+          if (i >= 2 && i < 4) {
+            emote.innerHTML = `<i class="fa-solid fa-face-sad-tear fa-2x"></i>`;
+          } else if (i >= 4 && i < 6) {
+            emote.innerHTML = `<i class="fa-solid fa-face-meh fa-2x"></i>`;
+          } else if (i == 6) {
+            emote.innerHTML = `<i class="fa-solid fa-face-smile fa-2x"></i>`;
+          }
+        })
       }
 
-
+      //half star
+      document.querySelector(`#half`).addEventListener("mouseover", function(){
+        emote.innerHTML = `<i class="fa-solid fa-face-grin-stars fa-2x"></i>`;
+      })
 
       // Add event listener to enable submit button
       starRatingDiv.querySelectorAll('input').forEach(input => {
