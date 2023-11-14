@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Movie Reviews</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+
+
+
+    .container {
+      width: 100%;
+      padding: 10px;
+    }
+
+    .movie-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .movie-title {
+      flex-grow: 1;
+    }
+
+    .movie-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .star-rating {
+      display: inline-flex;
+      direction: rtl;
+    }
+
+    .star-rating input[type="radio"] {
+      display: none;
+    }
+
+    .star-rating label {
+      color: lightgray;
+      font-size: 50px;
+      cursor: pointer;
+    }
+
+    #movieName {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .star-rating label::before {
+      content: '\f005';
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+    }
+
+    .star-rating label.half::before {
+      content: '\f089';
+      /* FontAwesome half star */
+    }
+
+    .modal-dialog {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(80% - (1.75rem * 1));
+      /* Adjust top and bottom padding */
+    }
+
+    .modal-content {
+      margin: auto;
+      text-align: center;
+    }
+
+    #submitReview {
+      width: 100%;
+      border-radius: 10px;
+      transition: 500ms;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover~label,
+    .star-rating input[type="radio"]:checked~label {
+      color: gold;
+      transition: 200ms;
+      text-shadow: 0 0 5px #ffc107;
+      /* Soft glow on hover */
+    }
+
+    .star-rating {
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    .star-rating label {
+      padding: 2px;
+      margin: 0;
+    }
+
+    .star-rating label::before {
+      display: inline-block;
+      /* Ensures proper padding around the stars */
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Movie Reviews</a>
+    </div>
+  </nav>
+
+  <div class="container mt-3">
+    <!-- Featured Movies Section -->
+    <h2 class="mb-3">Featured Movies</h2>
+    <div class="d-flex justify-content-center align-items-center featured" style="">
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <!-- Movie Card -->
+        <div class="featuredMovie col">
+          <div class="card mb-3" style="max-width: 450px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://image.tmdb.org/t/p/original//A4j8S6moJS2zNtRR8oWF08gRnL5.jpg"
+                  class="img-fluid rounded-start" alt="Five Nights at Freddy's">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Five Nights at Freddy's</h5>
+                  <p class="card-text">Recently fired and desperate for work, a troubled young man named Mike agrees to
+                    take a position as a night security guard at an abandoned theme restaurant...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="featuredMovie col">
+          <div class="card mb-3" style="max-width: 450px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="https://image.tmdb.org/t/p/original//A4j8S6moJS2zNtRR8oWF08gRnL5.jpg"
+                  class="img-fluid rounded-start" alt="Five Nights at Freddy's">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Five Nights at Freddy's</h5>
+                  <p class="card-text">Recently fired and desperate for work, a troubled young man named Mike agrees to
+                    take a position as a night security guard at an abandoned theme restaurant...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicate the above block for the other featured movies, changing the data as necessary -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Searching Feature -->
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-12 mb-3">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for movies" aria-label="Search for movies"
+            aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Search results (hard coded for now for pop-up)-->
+  <div class="container mt-3">
+    <!-- to be templated -->
+    <div class="movie-row">
+      <div class="movie-title">Five Nights at Freddy's</div>
+      <div class="movie-actions">
+        <button type="submit" class="btn btn-outline-info" onclick="addReviewModal('Five Nights at Freddy\'s',1)">Add a
+          review</button>
+        <button type="submit" class="btn btn-outline-dark">View</button>
+      </div>
+    </div>
+
+    <!-- Repeat the above block for each movie -->
+  </div>
+
+  <!-- Movie Rating Modal -->
+  <div class="modal fade" id="movieRatingModal" tabindex="-1" aria-labelledby="movieRatingModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="movieRatingModalLabel">Rate Movie</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="movieName">Movie Name</p>
+          <div id="starRating" class="star-rating">
+            <!-- Generate stars using JavaScript -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="submitReview" class="btn btn-primary" disabled>Submit Review</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+  </script>
+
+  <!-- move pop-up scripting -->
+  <script>
+    //global variables for pop-up & movie.
+    let globalMovieTitle;
+    let globalMovieId;
+    let globalStarRating;
+
+    async function addReviewModal(movieTitle, movieId) {
+      // Set global variables
+      globalMovieTitle = movieTitle;
+      globalMovieId = movieId;
+      openRatingModal();
+    }
+
+    function openRatingModal() {
+      // Set the movie name
+      document.getElementById('movieName').textContent = globalMovieTitle;
+
+      // Generate stars
+      let starRatingDiv = document.getElementById('starRating');
+      starRatingDiv.innerHTML = '';
+
+      // Add half star
+      starRatingDiv.innerHTML += `
+      <input type="radio" id="starHalf" name="rating" value="0.5" />
+      <label for="starHalf" class="half"></label>`;
+      // Add 6 full stars
+      for (let i = 6; i >= 1; i--) {
+        starRatingDiv.innerHTML += `
+      <input type="radio" id="star${i}" name="rating" value="${i}" />
+      <label for="star${i}"></label>`;
+      }
+
+
+
+      // Add event listener to enable submit button
+      starRatingDiv.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', () => {
+          // set submit review to call submitReview function
+          globalStarRating = (input.value == .5) ? 6.5 : input.value;
+          document.getElementById('submitReview').disabled = false;
+          document.getElementById('submitReview').addEventListener('click', submitReview);
+        });
+      });
+
+      // Show modal
+      var modal = new bootstrap.Modal(document.getElementById('movieRatingModal'));
+      modal.show();
+    }
+
+    function submitReview() {
+      console.log(globalStarRating);
+      //TODO Ian
+    }
+  </script>
+</body>
+
+</html>
