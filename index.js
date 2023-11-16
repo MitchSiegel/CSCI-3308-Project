@@ -207,6 +207,23 @@ app.get("/home", async (req, res) => {
     res.render('pages/home');
 });
 
+app.get('/', async (req, res) => {
+
+    try
+    {
+        movQuery = `SELECT * FROM movies;`;
+        const movies = await db.query(movQuery);
+        res.render('pages/home', {movies: movies})
+    }
+    catch(error)
+    {
+        console.error('Error during page render:', error);
+        res.status(500).send({ message: 'Error during page render' });
+    }
+
+  });
+
+
 
 
 app.get("/movies/:id", auth, async (req, res) => {
