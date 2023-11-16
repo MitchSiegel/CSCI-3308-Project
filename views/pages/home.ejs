@@ -128,25 +128,56 @@
     </div>
   </nav>
 
+  
+  <!-- [FEATURED MOVIES, issues getting image to render, and release year to show]-->
   <div class="container mt-3">
-    <!-- Ethan this is where the featured movies should go-->
-  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4" id="movieCards">
 
+  <% for(var i = 0; i < 6; i++) { %>
+    <div class="col">
+    <div class="card">
+      <img src="<%= movies[i].posterImage %>" class="card-img-top" alt="<%= movies[i].title %>" onerror="console.error('Image load error:', '<%= movies[i].posterImage %>')">
+      <div class="card-body">
+        <h2 class = card-title><%= movies[i].title %></h2>
+        <p class = card-text><%= movies[i].description %></p>
+        <p class = card-text>Release Date: <%= movies[i].releaseDate %></p>
+      </div>
+    </div>
+  </div>
+  <% } %>
+    
+  </div>
+  
+  </div>
+  
+ 
   <!-- Searching Feature (to-do) -->
   <div class="container mt-3">
+    <h1> Search for Movies </h1>
+    <!-- Search Form -->
+    <form action="/search" method="get">
+      <label for="searchInput">Search:</label>
+      <input type="text" id="searchInput" name="movieName" placeholder="Enter search term" required>
+      <button type="submit">Search</button>
+    </form>
+
+  
+
   </div>
 
-  <!-- Search results (hard coded for now for pop-up)-->
+  <!-- Search results (hard coded for now for pop-up) [STILL NOT FULLY IMPLEMENTED]-->
   <div class="container mt-3">
     <!-- to be templated -->
+    <% movies.forEach(movie => { %>
     <div class="movie-row">
-      <div class="movie-title">Five Nights at Freddy's</div>
+      <div class="movie-title"><%= movie.title %></div>
       <div class="movie-actions">
-        <button type="submit" class="btn btn-outline-info" onclick="addReviewModal('Five Nights at Freddy\'s',1)">Add a
+        <button type="submit" class="btn btn-outline-info" onclick="addReviewModal('<%= movie.title %>',1)">Add a
           review</button>
         <button type="submit" class="btn btn-outline-dark">View</button>
       </div>
     </div>
+    <% }) %>
 
     <!-- Repeat the above block for each movie -->
   </div>
