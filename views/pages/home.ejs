@@ -116,6 +116,34 @@
       margin-top: 10px;
       margin-bottom:10px;
     }
+    .card {
+      display: flex;
+      flex-direction: column;
+      height: 240px;
+      overflow: hidden;
+    }
+
+    .col-md-4 {
+      height: 240px;
+    }
+
+    .img-fluid {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .col-md-8 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
   </style>
 </head>
 
@@ -129,26 +157,33 @@
   </nav>
 
   
-  <!-- [FEATURED MOVIES, issues getting image to render, and release year to show]-->
-  <div class="container mt-3">
-  <div class="row row-cols-1 row-cols-md-3 g-4" id="movieCards">
-
-  <% for(var i = 0; i < 6; i++) { %>
-    <div class="col">
-    <div class="card">
-      <img src="<%= movies[i].posterImage %>" class="card-img-top" alt="<%= movies[i].title %>" onerror="console.error('Image load error:', '<%= movies[i].posterImage %>')">
-      <div class="card-body">
-        <h2 class = card-title><%= movies[i].title %></h2>
-        <p class = card-text><%= movies[i].description %></p>
-        <p class = card-text>Release Date: <%= movies[i].releaseDate %></p>
+    <!-- [FEATURED MOVIES]-->
+    <div class="custom-container">
+      <div class="row row-cols-1 row-cols-md-3 g-4" id="movieCards">
+  
+        <% for(var i = 0; i < 6; i++) { %>
+        <div class="featuredMovie col">
+          <div class="card mb-3" style="max-width: 450px;">
+  
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="<%= movies[i].posterimage %>" class="img-fluid rounded-start" alt="<%= movies[i].title %>"
+                  onerror="console.error('Image load error:', '<%= movies[i].posterimage %>')">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h2 class="card-title"><%= movies[i].title %></h2>
+                  <p class="card-text"><%= movies[i].description %></p>
+                  <!-- I'm just disabling this for now -->
+                  <!-- <p class="card-text">Release Date: <%= movies[i].releasedate %></p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
       </div>
     </div>
-  </div>
-  <% } %>
-    
-  </div>
-  
-  </div>
   
  
   <!-- Searching Feature (to-do) -->
