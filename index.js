@@ -36,6 +36,7 @@ const auth = (req, res, next) => {
 // middleware setup
 app.set('view engine', 'ejs'); // set the view engine to EJS
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
+app.use(express.static('resources'));
 
 // database configuration
 const dbConfig = {
@@ -186,7 +187,7 @@ app.get("/search", async (req, res) => {
             return res.status(400).send({ message: 'movieName query expected.' });
         }
         //build query
-        const query = `SELECT * FROM movies WHERE title LIKE $1;`;
+        const query = `SELECT * FROM movies WHERE title ILIKE $1;`;
         //build values array
         const values = [`%${movieName}%`];
         //execute query
@@ -202,16 +203,12 @@ app.get("/search", async (req, res) => {
 
 
 /* authenticated routes */
-
-app.get("/home", async (req, res) => {
-    res.render('pages/home');
-});
-
 app.get('/', async (req, res) => {
 
     try
     {
-        movQuery = `SELECT * FROM movies;`;
+        //Only send the first 6 movies
+        movQuery = `SELECT * FROM movies LIMIT 6;`;
         const movies = await db.query(movQuery);
         res.render('pages/home', {movies: movies})
     }
@@ -222,8 +219,6 @@ app.get('/', async (req, res) => {
     }
 
   });
-
-
 
 
 app.get("/movies/:id", auth, async (req, res) => {
