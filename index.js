@@ -137,7 +137,7 @@ app.post('/login', async (req, res) => {
             });
         } else {
 
-            res.render('login.ejs', { error: 'Incorrect username or password' });
+            res.render('pages/login', { error: 'Incorrect username or password' });
         }
 
     }
@@ -229,6 +229,7 @@ app.get("/logout", async(req, res) => {
     req.session.destroy();
     res.redirect('/login');
 });
+
 //listen for requests
 module.exports = app.listen(3000, () => {
     console.log('Listening on port 3000');
