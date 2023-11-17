@@ -77,5 +77,6 @@
       console.log(globalStarRating);
       console.log(globalMovieId);
       console.log(globalReviewText);
-      //TODO Ian
+	    let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
+	    fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
     }

@@ -235,4 +235,10 @@ module.exports = app.listen(3000, () => {
     console.log('Listening on port 3000');
 });
 
-// comment
+app.post('/addReview', auth, async (req, res) => {
+	console.log(req.body);
+	// look at the console log and see data
+	// break data into variables
+	// Push the variables to the reviews and MovieReviews tables
+	let addReview = `INSERT INTO reviews (numberOfStars, text, userName) VALUES (${starRating}, ${reviewText}, ${username});`
+});
