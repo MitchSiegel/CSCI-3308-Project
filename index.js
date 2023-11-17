@@ -237,8 +237,23 @@ module.exports = app.listen(3000, () => {
 
 app.post('/addReview', auth, async (req, res) => {
 	console.log(req.body);
-	// look at the console log and see data
-	// break data into variables
-	// Push the variables to the reviews and MovieReviews tables
-	let addReview = `INSERT INTO reviews (numberOfStars, text, userName) VALUES (${starRating}, ${reviewText}, ${username});`
+    try {
+        if(!req.body.review || !req.body.rating || !req.body.id){
+            return res.status(400).send({ message: 'Invalid input' });
+        }
+        // look at the console log and see data
+        // break data into variables
+        // Push the variables to the reviews and MovieReviews tables
+        //this part handles adding the review to the database.
+        let addReview = `INSERT INTO reviews (numberOfStars, text, userName) VALUES (${req.body.rating}, ${req.body.review}, ${req.session.user.username});`
+
+        //you'll also need the movie id from the movie page to link the review to the movie
+
+        //temporary end request
+        res.end("Review added");
+    }
+    catch {
+        console.error('Error during review submission');
+        res.status(500).send({ message: 'Error during page render' });
+    }
 });

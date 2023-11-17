@@ -37,10 +37,11 @@
           globalStarRating = (input.value == .5) ? 6.5 : input.value;
           document.getElementById('submitReview').disabled = false;
           document.getElementById('submitReview').addEventListener('click', function(){
-            submitReview();
             globalReviewText = document.getElementById('reviewText').value;
             document.getElementById('submitReview').disabled = true;
             document.getElementById('reviewText').value = " ";
+            submitReview();
+            modal.hide();
           });
         });
       });
