@@ -88,5 +88,7 @@
 
     function submitReview() {
       console.log(globalStarRating);
-      //TODO Ian
+      //Post info of 
+	  
+	  //let addReview = `INSERT INTO reviews (numberOfStars, text, userName) VALUES (${globalStarRating}, ${globalReviewText}, ${});`
     }

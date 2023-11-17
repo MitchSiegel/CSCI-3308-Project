@@ -231,5 +231,3 @@ app.get("/movie/:id", auth, async (req, res) => {
 module.exports = app.listen(3000, () => {
     console.log('Listening on port 3000');
 });
-
-// comment
