@@ -242,7 +242,7 @@ app.get("/movie/:id", async (req, res) => {
             // Render the page with both movies and reviews
             res.render('pages/viewDetails', { movies: movies, reviews: reviews });
         } else {
-            // Render the page with only movie details (and an empty reviews array)
+            // Render the page with only movie details (and an empty reviews array, as viewDetails will break without a reviews array of some sort)
             res.render('pages/viewDetails', { movies: movies, reviews: [] });
         }
     }
