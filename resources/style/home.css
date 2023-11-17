@@ -1,0 +1,148 @@
+html,
+body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    margin-bottom: 20%;
+}
+
+.container {
+    width: 100%;
+    padding: 10px;
+}
+
+.movie-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-container {
+    padding: 10px;
+}
+
+.movie-title {
+    flex-grow: 1;
+}
+
+.movie-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.star-rating {
+    display: inline-flex;
+    direction: rtl;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 240px;
+    overflow: hidden;
+}
+
+.col-md-4 {
+    height: 240px;
+}
+
+.img-fluid {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.col-md-8 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating label {
+    color: lightgray;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+#movieName {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#movieResults {
+    min-height: 500px;
+    transition: height 0.5s ease;
+}
+
+.star-rating label::before {
+    content: '\f005';
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+}
+
+.star-rating label.half::before {
+    content: '\f089';
+    /* FontAwesome half star */
+}
+
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(80% - (1.75rem * 1));
+    /* Adjust top and bottom padding */
+}
+
+.modal-content {
+    margin: auto;
+    text-align: center;
+}
+
+#submitReview {
+    width: 100%;
+    border-radius: 10px;
+    transition: 500ms;
+}
+
+.star-rating label:hover,
+.star-rating label:hover~label,
+.star-rating input[type="radio"]:checked~label {
+    color: gold;
+    transition: 200ms;
+    text-shadow: 0 0 5px #ffc107;
+    /* Soft glow on hover */
+}
+
+.star-rating {
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.star-rating label {
+    padding: 2px;
+    margin: 0;
+}
+
+.star-rating label::before {
+    display: inline-block;
+}
+
+#emote {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
