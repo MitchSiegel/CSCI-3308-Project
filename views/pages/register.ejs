@@ -1,21 +1,30 @@
 <%- include ('../partials/header') %>
 
 <main>
-    <div style="margin-left:25%;margin-right:25%;padding:50px;">
-      <h1><b>Register</b></h1>
-      <form action="/register" method="POST">
-          <div class="form-group">
-            <label for="username">Create Username</label>
-            <input type="username" class="form-control" id="username" aria-describedby="usernameHelp" placeholder="Enter username">
+  <div style="margin-left:25%;margin-right:25%;padding:50px;">
+        <!-- Start of Registration Form -->
+        <h1>Register</h1>
+        <form action="/register" method="POST">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
           </div>
-          <div class="form-group">
-            <label for="password">Create Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Enter password">
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
           </div>
-          <button type="submit" class="btn btn-primary">Register</button>
+          <hr>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p>Already have an account? <a href="/login">Login</a></p>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+          </div>
         </form>
-    </div>
-  </main>
-
+        <!-- End of Registration Form -->
+  </div>
+</main>
 
 <%- include ('../partials/footer') %>

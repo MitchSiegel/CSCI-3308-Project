@@ -2,6 +2,7 @@
     let globalMovieTitle;
     let globalMovieId;
     let globalStarRating;
+    let globalReviewText;
 
     async function addReviewModal(movieTitle, movieId) {
       // Set global variables
@@ -28,25 +29,6 @@
       <input type="radio" id="star${i}" name="rating" value="${i}" />
       <label id="label${i}" for="star${i}"></label>`;
       }
-      let emote = document.getElementById('emote');
-
-      for (let i = 6; i >= 1; i--) {
-        //add mouseover event listener to change the emote
-        document.querySelector(`#label${i}`).addEventListener("mouseover", function () {
-          if (i >= 2 && i < 4) {
-            emote.innerHTML = `<i class="fa-solid fa-face-sad-tear fa-2x"></i>`;
-          } else if (i >= 4 && i < 6) {
-            emote.innerHTML = `<i class="fa-solid fa-face-meh fa-2x"></i>`;
-          } else if (i == 6) {
-            emote.innerHTML = `<i class="fa-solid fa-face-smile fa-2x"></i>`;
-          }
-        })
-      }
-
-      //half star
-      document.querySelector(`#half`).addEventListener("mouseover", function () {
-        emote.innerHTML = `<i class="fa-solid fa-face-grin-stars fa-2x"></i>`;
-      })
 
       // Add event listener to enable submit button
       starRatingDiv.querySelectorAll('input').forEach(input => {
@@ -54,7 +36,12 @@
           // set submit review to call submitReview function
           globalStarRating = (input.value == .5) ? 6.5 : input.value;
           document.getElementById('submitReview').disabled = false;
-          document.getElementById('submitReview').addEventListener('click', submitReview);
+          document.getElementById('submitReview').addEventListener('click', function(){
+            submitReview();
+            globalReviewText = document.getElementById('reviewText').value;
+            document.getElementById('submitReview').disabled = true;
+            document.getElementById('reviewText').value = " ";
+          });
         });
       });
 
@@ -88,6 +75,8 @@
 
     function submitReview() {
       console.log(globalStarRating);
-	  let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
-	  fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
+      console.log(globalMovieId);
+      console.log(globalReviewText);
+	    let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
+	    fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
     }

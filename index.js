@@ -13,8 +13,8 @@ const bcrypt = require('bcrypt'); //  To hash passwords
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
-        saveUninitialized: false,
-        resave: false,
+        saveUninitialized: true,
+        resave: true,
     })
 );
 
@@ -77,7 +77,6 @@ app.post('/register', async (req, res) => {
         const hash = await bcrypt.hash(req.body.password, 10);
         var username = req.body.username;
 
-        // To-DO: Insert username and hashed password into the 'users' table
         var insertQuery = `insert into users (username, password) VALUES ('${username}', '${hash}');`
         await db.query(insertQuery)
         res.redirect('/login')
@@ -130,15 +129,15 @@ app.post('/login', async (req, res) => {
 
         const match = await bcrypt.compare(password, user.password);
         if (match) {
-
+            //only save username, not password (for obvious reasons)
+            let user = { username: username };
             req.session.user = user;
             req.session.save(() => {
-
-                res.redirect('/home');
+                res.redirect('/');
             });
         } else {
 
-            res.render('login.ejs', { error: 'Incorrect username or password' });
+            res.render('pages/login', { error: 'Incorrect username or password' });
         }
 
     }
@@ -203,8 +202,7 @@ app.get("/search", async (req, res) => {
 
 
 /* authenticated routes */
-app.get('/', async (req, res) => {
-
+app.get('/', auth, async (req, res) => {
     try
     {
         //Only send the first 6 movies
@@ -225,6 +223,11 @@ app.get("/movie/:id", auth, async (req, res) => {
     //TODO get movie details from database
     //TODO render movie details page
     res.end("Welcome to the movie details page!");
+});
+
+app.get("/logout", async(req, res) => {
+    req.session.destroy();
+    res.redirect('/login');
 });
 
 //listen for requests
