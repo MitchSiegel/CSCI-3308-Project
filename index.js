@@ -221,7 +221,7 @@ app.get('/', async (req, res) => {
   });
 
 
-app.get("/movies/:id", auth, async (req, res) => {
+app.get("/movie/:id", auth, async (req, res) => {
     //TODO get movie details from database
     //TODO render movie details page
     res.end("Welcome to the movie details page!");
