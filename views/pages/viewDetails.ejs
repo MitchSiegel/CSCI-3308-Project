@@ -1,0 +1,88 @@
+<%- include ('../partials/header') %>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Page Title</title>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+      .container {
+          max-width: 800px;
+          margin: 20px auto;
+          overflow: hidden;
+          border: 1px solid #ccc;
+          padding: 20px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .title {
+          font-size: 24px;
+          font-weight: bold;
+          text-align: right;
+          margin-bottom: 10px;
+      }
+      .description {
+          font-size: 16px;
+          text-align: right;
+          margin-bottom: 20px;
+      }
+      .image-container {
+          float: left;
+          margin-right: 20px;
+      }
+      img {
+          max-width: 100%;
+          height: auto;
+      }
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+      }
+      th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+      }
+      th {
+          background-color: #f2f2f2;
+      }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="image-container">
+      <img src="<%= movie.posterimage %>" alt="<%= movie.title %>"
+      onerror="console.error('Image load error:', '<%= movie.posterimage %>')">
+  </div>
+  <div class="content">
+      <div class="title"><%= movie.title %></div>
+      <div class="description">
+          <p><%= movie.description %></p>
+      </div>
+  </div>
+</div>
+<br>
+<h2>Reviews</h2>
+<table>
+  <tr>
+      <th>Username</th>
+      <th>Rating</th>
+  </tr>
+  <% reviews.forEach(review => { %>
+  <tr>
+      <td>review.userName</td>
+      <td>review.numberOfStars</td>
+  </tr>
+  <% } %>
+  <!-- Add more rows as needed -->
+</table>
+
+</body>
+
+  <%- include ('../partials/footer') %>

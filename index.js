@@ -223,6 +223,24 @@ app.get('/', async (req, res) => {
 
 app.get("/movie/:id", auth, async (req, res) => {
     //TODO get movie details from database
+    try{
+        movid = req.params['id']
+        movQuery = `SELECT * FROM movies WHERE movieId = '${movid}';`;
+        const movies = await db.query(movQuery);
+
+        movreviewsQuery = `SELECT * FROM movieReviews WHERE movieId = '${movid}';`;
+        const moviereviews = await db.query(movreviewsQuery);
+
+        const review = moviereviews.reviewId;
+        reviewsQuery = `SELECT * FROM reviews WHERE reviewId = '${review}';`;
+        const reviews = await db.query(reviewsQuery);
+        
+        res.render('pages/viewDetails', {movies: movies}, {reviews: reviews});
+    }
+    catch(error){
+        console.error('Error during view Movie Details:', error);
+        res.status(500).send({ message: 'Error during view Movie Details' });
+    }
     //TODO render movie details page
     res.end("Welcome to the movie details page!");
 });
