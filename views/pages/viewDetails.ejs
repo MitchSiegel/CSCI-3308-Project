@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Page Title</title>
+  <title>Movie Reviews</title>
   <style>
       body {
           font-family: Arial, sans-serif;
@@ -57,31 +57,35 @@
 
 <div class="container">
   <div class="image-container">
-      <img src="<%= movie.posterimage %>" alt="<%= movie.title %>"
-      onerror="console.error('Image load error:', '<%= movie.posterimage %>')">
+      <img src="<%= movies[0].posterimage %>" alt="<%= movies[0].title %>"
+      onerror="console.error('Image load error:', '<%= movies[0].posterimage %>')">
   </div>
   <div class="content">
-      <div class="title"><%= movie.title %></div>
+      <div class="title"><%= movies[0].title %></div>
       <div class="description">
-          <p><%= movie.description %></p>
+          <p><%= movies[0].description %></p>
       </div>
   </div>
 </div>
 <br>
 <h2>Reviews</h2>
-<table>
-  <tr>
-      <th>Username</th>
-      <th>Rating</th>
-  </tr>
-  <% reviews.forEach(review => { %>
-  <tr>
-      <td>review.userName</td>
-      <td>review.numberOfStars</td>
-  </tr>
+<% if(reviews && reviews.length > 0) { %>
+    <table>
+      <tr>
+          <th>Username</th>
+          <th>Rating</th>
+      </tr>
+      <% reviews.forEach(review => { %>
+      <tr>
+          <td><%= review.userName %></td>
+          <td><%= review.numberOfStars %></td>
+      </tr>
+      <% }); %>
+      <!-- Add more rows as needed -->
+    </table>
+  <% } else { %>
+    <p>No reviews available.</p>
   <% } %>
-  <!-- Add more rows as needed -->
-</table>
 
 </body>
 

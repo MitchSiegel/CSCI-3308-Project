@@ -221,28 +221,37 @@ app.get('/', async (req, res) => {
   });
 
 
-app.get("/movie/:id", auth, async (req, res) => {
+app.get("/movie/:id", async (req, res) => {
     //TODO get movie details from database
     try{
         movid = req.params['id']
+        
         movQuery = `SELECT * FROM movies WHERE movieId = '${movid}';`;
+        
         const movies = await db.query(movQuery);
 
         movreviewsQuery = `SELECT * FROM movieReviews WHERE movieId = '${movid}';`;
         const moviereviews = await db.query(movreviewsQuery);
-
-        const review = moviereviews.reviewId;
-        reviewsQuery = `SELECT * FROM reviews WHERE reviewId = '${review}';`;
-        const reviews = await db.query(reviewsQuery);
         
-        res.render('pages/viewDetails', {movies: movies}, {reviews: reviews});
+
+        // Check if moviereviews has any results
+        const reviewId = moviereviews.length > 0 ? moviereviews[0].reviewId : null;
+
+        if (reviewId) {
+            const reviewsQuery = `SELECT * FROM reviews WHERE reviewId = '${reviewId}';`;
+            const reviews = await db.query(reviewsQuery);
+
+            // Render the page with both movies and reviews
+            res.render('pages/viewDetails', { movies: movies, reviews: reviews });
+        } else {
+            // Render the page with only movie details (and an empty reviews array)
+            res.render('pages/viewDetails', { movies: movies, reviews: [] });
+        }
     }
     catch(error){
         console.error('Error during view Movie Details:', error);
         res.status(500).send({ message: 'Error during view Movie Details' });
     }
-    //TODO render movie details page
-    res.end("Welcome to the movie details page!");
 });
 
 //listen for requests
