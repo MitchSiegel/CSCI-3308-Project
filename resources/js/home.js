@@ -88,7 +88,6 @@
 
     function submitReview() {
       console.log(globalStarRating);
-      //Post info of 
-	  
-	  //let addReview = `INSERT INTO reviews (numberOfStars, text, userName) VALUES (${globalStarRating}, ${globalReviewText}, ${});`
+	  let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
+	  fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
     }
