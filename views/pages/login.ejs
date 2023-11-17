@@ -1,9 +1,8 @@
 <%- include ('../partials/header') %>
 
 <main>
-    <p><b>Register <b><p></p>
-    <p><b>Login<b><p>
-    <div class="container">
+    <div style="margin-left:25%;margin-right:25%;padding:50px;">
+      <h1><b>Login</b></h1>
       <form action="/login" method="POST">
           <div class="form-group">
             <label for="username">Username</label>
@@ -11,7 +10,7 @@
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="password">
+            <input type="password" class="form-control" id="password" placeholder="Enter Password">
           </div>
           <button type="submit" class="btn btn-primary">Login</button>
         </form>
