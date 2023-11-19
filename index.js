@@ -308,22 +308,22 @@ app.post('/addReview', auth, async (req, res) => {
     }
 });
 
-//using fetch get unsplash image
-//@return {url, name, link}
+//get a random background image from unsplash, convert it to base64, and return data about the image, including credit.
 async function getBg(){
-    const client_id = process.env.UNSPLASH_ACCESS_KEY;
-    if(!client_id){
-        console.error('UNSPLASH_ACCESS_KEY not set');
-        return null;
+    const access = process.env.UNSPLASH_ACCESS_KEY;
+    if(!access || access == "key"){ //if the key is set to the default placeholder value or not set at all, return a default image
+        console.error('UNSPLASH_ACCESS_KEY not set. Proving default image instead of random image from unsplash');
+        return {base64: null, url: "https://images.unsplash.com/photo-1485095329183-d0797cdc5676", name: "Jake Hills", link: "https://unsplash.com/@jakehills", default: true};
     }
     //get a random number between 1 and 30
-    const picture = Math.floor(Math.random() * 29);
-    const url = `https://api.unsplash.com/search/photos?query=movie theather&orientation=landscape&client_id=${client_id}&per_page=1&page=${picture}`
+    const picture = Math.floor(Math.random() * 50);
+    const url = `https://api.unsplash.com/search/photos?query=movie theather&orientation=landscape&client_id=${access}&per_page=1&page=${picture}`
     const response = await fetch(url);
     //convert image to base64 for quicker rendering on the client (but still credit the author)
     const data = await response.json();
     const base64 = await urlToBase(data.results[0].urls.full);
-    return {base64: base64, url: data.results[0].urls.full, name: data.results[0].user.name, link: data.results[0].user.links.html};
+    console.log({url: data.results[0].urls.full, name: data.results[0].user.name, link: data.results[0].user.links.html, default: false});
+    return {base64: base64, url: data.results[0].urls.full, name: data.results[0].user.name, link: data.results[0].user.links.html, default: false};
 }
 
 async function urlToBase(url){

@@ -1,14 +1,25 @@
 <%- include ('../partials/header') %>
 <!-- include other stylesheet -->
 <link rel="stylesheet" href="/style/login.css">
-<style>
-  body {
-    background-image: url('data:image/png;base64,<%= bg.base64 %>');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-</style>
+<% if (bg.default) { %>
+  <style>
+   body {
+     background-image: url('<%= bg.url %>');
+     background-position: center;
+     background-size: cover;
+     background-repeat: no-repeat;
+   }
+ </style>
+ <% }else{ %>
+   <style>
+   body {
+     background-image: url('data:image/png;base64,<%= bg.base64 %>');
+     background-position: center;
+     background-size: cover;
+     background-repeat: no-repeat;
+   }
+ </style>
+ <% } %>
 <main>
   <div class="loginWrapper">
         <!-- Start of Registration Form -->

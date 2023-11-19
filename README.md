@@ -17,12 +17,14 @@
 | [GitHub](https://github.com) | Version Control & Project Management |
 | [Heroku](https://www.heroku.com/) | Hosting (maybe) |
 | [Bootstrap](https://getbootstrap.com/) | Frontend framework |
+| [Unsplash](https://unsplash.com/) | Image API for login and register page|
 
 todo 
 Prerequisites to run the application - Any software that needs to be installed to run the application
 
 How to install and run the application (env variables, config file, etc)
 
+Get an API key from [Unsplash](https://unsplash.com/developers)
 Sample .env file
 ```bash
 # database credentials
@@ -32,6 +34,9 @@ POSTGRES_DB="project_db"
 
 #Node 
 SESSION_SECRET="super duper secret!!!!"
+
+#unsplash api key. This key is technically optional, but the login and register pages will simply display a non random, default image if this is not set
+UNSPLASH_ACCESS_KEY="key"
 ```
 
 How to run tests
