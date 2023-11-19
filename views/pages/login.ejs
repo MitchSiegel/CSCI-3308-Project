@@ -3,8 +3,9 @@
 <link rel="stylesheet" href="/style/login.css">
 <style>
   body {
-    background-image: url('https://images.unsplash.com/photo-1485095329183-d0797cdc5676?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-image: url('data:image/png;base64,<%= bg.base64 %>');
     background-position: center;
+    background-size: cover;
     background-repeat: no-repeat;
   }
 </style>
@@ -34,6 +35,8 @@
         </form>
         <!-- End of Registration Form -->
   </div>
+  <!-- image credit, along with a link to their unsplash profile -->
+  <div class="authorCredit">Image credit: <a href="<%= bg.link %>" target="_blank"><%= bg.name %></a>. Images sourced from <a href="https://unsplash.com/" target="_blank">Unsplash</a>.</div>
 </main>
 
 

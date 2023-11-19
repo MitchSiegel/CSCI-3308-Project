@@ -52,9 +52,13 @@
     }
 
     let movieInput = document.getElementById('movieSearch');
+    let searchTimeout = false;
     async function search(){
-      if (movieInput.value.length  < 1) return;
-      let query = await fetch(`/search?movieName=${movieInput.value}`);
+      if(movieInput.value.length  < 3) return;
+      if(searchTimeout) return; 
+      let input = movieInput.value;
+      let query = await fetch(`/search?movieName=${input}`);
+      searchTimeout = true; // Prevents search from being called again
       let result = await query.json();
       console.log(result);
       if(result.movies.length != 0 ){
@@ -72,6 +76,12 @@
       } else {
         document.getElementById('movieResults').innerHTML = `<p class="text-center">No results for ${movieInput.value} found.</p>`;
       }
+      //this is a little weird, but it prevents the search from being called again for 3 seconds
+      //it will also research if input changes during that time to avoid a weird feeling
+      setTimeout(() => {
+        searchTimeout = false;//allow search again
+        if(input != movieInput.value) search(); //if the input has changed, search again
+      }, 3000);
     }
 
     function submitReview() {

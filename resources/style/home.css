@@ -2,6 +2,8 @@ html,
 body {
     height: 100%;
     overflow-x: hidden;
+    background-color:#0E2954;
+    color:white;
 }
 
 body {
@@ -45,6 +47,10 @@ body {
     flex-direction: column;
     height: 240px;
     overflow: hidden;
+    color:white;
+    background-color: #111928bf;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
 .col-md-4 {
@@ -124,7 +130,7 @@ body {
 .star-rating input[type="radio"]:checked~label {
     color: gold;
     transition: 200ms;
-    text-shadow: 0 0 5px #ffc107;
+    text-shadow: 0 0 10px #ffc107;
     /* Soft glow on hover */
 }
 
@@ -145,4 +151,65 @@ body {
 #emote {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+.custom-title{
+    color: #1a07a8;
+    font-weight: bold;
+    font-size:2em;
+    background-image: -webkit-linear-gradient(0deg, #bf6811 13%, #d286bc 64%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.search .input-group{
+    margin-left:25%;
+    margin-right:25%;
+}
+.search input{
+    width:50% !important;
+    /* dark mode */
+    background-color: rgba(17, 25, 40, 0.75);
+    color:white;
+    transition: 1s;
+}
+.search .input-group-text{
+    background-color: rgba(17, 25, 40, 0.75);
+    color:white;
+    transition: 1s;
+}
+#reviewText{
+    background-color: rgba(17, 25, 40, 0.75);
+    color:white;
+
+}
+.search input::placeholder{
+    color:rgba(255,255,255,0.5);
+}
+.search input:hover, .search input:focus{
+    border:#7d6ace 1px solid;
+    background-color: rgba(17, 25, 40, 0.75);
+    color:white;
+}
+:focus {
+    outline-color: transparent;
+    outline-style: none;
+  }
+.search .custom-title{
+    background-image: -webkit-linear-gradient(0deg, #7d6ace 27%, #cb6c23 45%);
+}
+/* override bootstrap input-group flex */
+.input-group>.form-control, .input-group>.form-floating, .input-group>.form-select{
+    flex: none;
+}
+
+.modal-header{
+    /* dark mode */
+    background-color:#0E2954;
+    color:white;
+    transition: 1s;
+}
+.modal-content{
+    background-color: #0E2954;
 }

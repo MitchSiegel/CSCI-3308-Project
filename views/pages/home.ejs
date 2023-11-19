@@ -3,7 +3,7 @@
 
   <!-- [FEATURED MOVIES]-->
   <div class="custom-container">
-    <p class="fs-3">Featured movies</p>
+    <p class="text-center custom-title">Featured movies</p>
     <div class="row row-cols-1 row-cols-md-3 g-4" id="movieCards">
 
       <% for(var i = 0; i < 6; i++) { %>
@@ -31,13 +31,13 @@
   </div>
 
   <!-- Searching Feature -->
-  <div class="container mt-3">
+  <div class="container mt-3 search">
     <div class="row">
       <div class="col-12 mb-3">
-        <p class="fs-3">Search movies</p>
-        <div class="input-group mb-3">
+        <p class="text-center custom-title">Search Movies</p>
+        <div class="input-group">
           <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-          <input type="text" class="form-control" id="movieSearch" placeholder="Search movies" aria-label="Search movies" oninput="search()">
+          <input type="text" class="form-control" id="movieSearch" placeholder="Search movies" aria-label="Search movies" onkeyup="search()">
         </div>
       </div>
     </div>
@@ -47,9 +47,9 @@
         <div class="movie-row">
           <div class="movie-title"><%= movie.title %></div>
           <div class="movie-actions">
-            <button type="submit" class="btn btn-outline-info" onclick='addReviewModal("<%= movie.title %>",1)'>Add a
+            <button type="submit" class="btn btn-info" onclick='addReviewModal("<%= movie.title %>",1)'>Add a
               review</button>
-            <button type="submit" class="btn btn-outline-dark"><a href="/movie/<%= movie.movieid %>" style="color: inherit; text-decoration: none;">View Details</a></button>
+            <button type="submit" class="btn btn-success"><a href="/movie/<%= movie.movieid %>" style="color: inherit; text-decoration: none;">View Details</a></button>
           </div>
         </div>
         <% }) %>
@@ -58,7 +58,7 @@
 
 
   <!-- Movie Rating Modal -->
-  <div class="modal fade" id="movieRatingModal" tabindex="-1" aria-labelledby="movieRatingModalLabel"
+  <div class="modal fade movie-modal" id="movieRatingModal" tabindex="-1" aria-labelledby="movieRatingModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

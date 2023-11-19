@@ -1,7 +1,16 @@
 <%- include ('../partials/header') %>
-
+<!-- include other stylesheet -->
+<link rel="stylesheet" href="/style/login.css">
+<style>
+  body {
+    background-image: url('data:image/png;base64,<%= bg.base64 %>');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+</style>
 <main>
-  <div style="margin-left:25%;margin-right:25%;padding:50px;">
+  <div class="loginWrapper">
         <!-- Start of Registration Form -->
         <h1>Register</h1>
         <form action="/register" method="POST">
@@ -25,6 +34,8 @@
         </form>
         <!-- End of Registration Form -->
   </div>
+    <!-- image credit, along with a link to their unsplash profile -->
+    <div class="authorCredit">Image credit: <a href="<%= bg.link %>" target="_blank"><%= bg.name %></a>. Images sourced from <a href="https://unsplash.com/" target="_blank">Unsplash</a>.</div>
 </main>
 
 <%- include ('../partials/footer') %>

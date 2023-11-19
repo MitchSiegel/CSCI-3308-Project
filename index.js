@@ -7,10 +7,11 @@ const pgp = require('pg-promise')(); // To connect to the Postgres DB from the n
 const bodyParser = require('body-parser');
 const session = require('express-session'); // To set the session object. To store or access session data, use the `req.session`, which is (generally) serialized as JSON by the store.
 const bcrypt = require('bcrypt'); //  To hash passwords
+const fetch = require('node-fetch'); // To make HTTP requests from the node server
+const compression = require('compression'); // To compress the response bodies
 
 
-//global variables 
-let previousImage = null; // this will be used to store the last image that was gotten from the unsplash API. It will prevent waiting for unsplash to return a new image if the user refreshes the page.
+
 //initialize session variables
 app.use(
     session({
@@ -39,6 +40,7 @@ const auth = (req, res, next) => {
 app.set('view engine', 'ejs'); // set the view engine to EJS
 app.use(bodyParser.json()); // specify the usage of JSON for parsing request body.
 app.use(express.static('resources'));
+app.use(compression()); // compress all responses (super basic compression)
 
 // database configuration
 const dbConfig = {
@@ -68,8 +70,17 @@ app.get('/welcome', (req, res) => {
     res.json({status: 'success', message: 'Welcome!'});
   });
 
-app.get('/register', (req, res) => {
-    res.render('pages/register')
+
+app.get('/register', async(req, res) => {
+    //get background image (unless we already have it cached)
+    if(!cachedBGImage){
+        cachedBGImage = await getBg();
+        res.render('pages/register', {bg: cachedBGImage});
+    }else{
+        res.render('pages/register', {bg: cachedBGImage});
+        //update image now that we've sent the response
+        cachedBGImage = await getBg();
+    }
 });
 
 // Register
@@ -117,8 +128,17 @@ app.post("/testRegister", async (req, res) => {
     }
 });
 
-app.get('/login', (req, res) => {
-    res.render('pages/login')
+let cachedBGImage;
+app.get('/login', async(req, res) => {
+    //get background image (unless we already have it cached)
+    if(!cachedBGImage){
+        cachedBGImage = await getBg();
+        res.render('pages/login', {bg: cachedBGImage});
+    }else{
+        res.render('pages/login', {bg: cachedBGImage});
+        //update image now that we've sent the response
+        cachedBGImage = await getBg();
+    }
 });
 
 app.post('/login', async (req, res) => {
@@ -204,7 +224,8 @@ app.get("/search", async (req, res) => {
 
 
 /* authenticated routes */
-app.get('/', auth, async (req, res) => {
+//TODO add back auth middleware
+app.get('/', async (req, res) => {
     try
     {
         //Only send the first 6 movies
@@ -286,3 +307,27 @@ app.post('/addReview', auth, async (req, res) => {
         res.status(500).send({ message: 'Error during page render' });
     }
 });
+
+//using fetch get unsplash image
+//@return {url, name, link}
+async function getBg(){
+    const client_id = process.env.UNSPLASH_ACCESS_KEY;
+    if(!client_id){
+        console.error('UNSPLASH_ACCESS_KEY not set');
+        return null;
+    }
+    //get a random number between 1 and 30
+    const picture = Math.floor(Math.random() * 29);
+    const url = `https://api.unsplash.com/search/photos?query=movie theather&orientation=landscape&client_id=${client_id}&per_page=1&page=${picture}`
+    const response = await fetch(url);
+    //convert image to base64 for quicker rendering on the client (but still credit the author)
+    const data = await response.json();
+    const base64 = await urlToBase(data.results[0].urls.full);
+    return {base64: base64, url: data.results[0].urls.full, name: data.results[0].user.name, link: data.results[0].user.links.html};
+}
+
+async function urlToBase(url){
+    const response = await fetch(url);
+    const data = await response.buffer();
+    return data.toString('base64');
+}
