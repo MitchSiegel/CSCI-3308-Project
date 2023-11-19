@@ -9,6 +9,8 @@ const session = require('express-session'); // To set the session object. To sto
 const bcrypt = require('bcrypt'); //  To hash passwords
 
 
+//global variables 
+let previousImage = null; // this will be used to store the last image that was gotten from the unsplash API. It will prevent waiting for unsplash to return a new image if the user refreshes the page.
 //initialize session variables
 app.use(
     session({
