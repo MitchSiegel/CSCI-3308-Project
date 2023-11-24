@@ -42,7 +42,7 @@ body {
     direction: rtl;
 }
 
-.card {
+.custom-card .card {
     display: flex;
     flex-direction: column;
     height: 240px;
@@ -53,23 +53,58 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.125);
 }
 
-.col-md-4 {
+
+.movie-image {
+    max-height: 400px;
+    width: 100%; 
+    object-fit: cover;
+    display: block;
+    padding:10px;
+    border-radius: 25px;
+    margin: 0 auto;
+  }
+  .movie-card {
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto; 
+    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+    border-radius: 25px;
+    background-color: #12263a; 
+    color: #ffffff;
+  }
+  .card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+  .button-container {
+    text-align: center;
+    margin-top: 10px; 
+  }
+  .movie-btn {
+    margin: 0 5px;
+    /*TODO add border radius*/
+  }
+
+.custom-card .col-md-4 {
     height: 240px;
 }
 
-.img-fluid {
+.custom-card .img-fluid {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-.col-md-8 {
+.custom-card .col-md-8 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-.card-body {
+.custom-card .card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
