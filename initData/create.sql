@@ -16,14 +16,9 @@ CREATE TABLE movies (
 -- Reviews table (we can remove the check here I just saw it in the documentation and thought it would be easier to have a check here instead of in the JS)
 CREATE TABLE reviews (
     reviewId SERIAL PRIMARY KEY,
+    movieId INT REFERENCES movies(movieId) ON DELETE CASCADE,
     numberOfStars DECIMAL(2,1) CHECK (numberOfStars <= 6.5),
     text TEXT,
-    userName VARCHAR(255) REFERENCES users(userName)
-);
-
--- Link table for Reviews to Movies (on delete will handle the case where either a movie or a review is deleted to delete the reference between the two)
-CREATE TABLE movieReviews (
-    reviewId INT REFERENCES reviews(reviewId) ON DELETE CASCADE,
-    movieId INT REFERENCES movies(movieId) ON DELETE CASCADE,
-    PRIMARY KEY (reviewId, movieId)
+    userName VARCHAR(255),
+    localReview BOOLEAN DEFAULT TRUE
 );

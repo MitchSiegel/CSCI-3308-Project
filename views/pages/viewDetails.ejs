@@ -1,91 +1,88 @@
 <%- include ('../partials/header') %>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style/movie.css">
+<style>
+  body {
+    background-image: url('data:image/png;base64,<%= bg %>');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+</style>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Movie Reviews</title>
-  <style>
-      body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-      }
-      .container {
-          max-width: 800px;
-          margin: 20px auto;
-          overflow: hidden;
-          border: 1px solid #ccc;
-          padding: 20px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      }
-      .title {
-          font-size: 24px;
-          font-weight: bold;
-          text-align: right;
-          margin-bottom: 10px;
-      }
-      .description {
-          font-size: 16px;
-          text-align: right;
-          margin-bottom: 20px;
-      }
-      .image-container {
-          float: left;
-          margin-right: 20px;
-      }
-      img {
-          max-width: 100%;
-          height: auto;
-      }
-      table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-top: 20px;
-      }
-      th, td {
-          border: 1px solid #ddd;
-          padding: 8px;
-          text-align: left;
-      }
-      th {
-          background-color: #f2f2f2;
-      }
-  </style>
-</head>
-<body>
-
-<div class="container">
-  <div class="image-container">
-      <img src="<%= movies[0].posterimage %>" alt="<%= movies[0].title %>"
-      onerror="console.error('Image load error:', '<%= movies[0].posterimage %>')">
-  </div>
-  <div class="content">
-      <div class="title"><%= movies[0].title %></div>
-      <div class="description">
-          <p><%= movies[0].description %></p>
+  <!-- Movie Card Section -->
+  <div class="container mt-5 movieCard">
+    <p class="text-center glass lg"><%= data.title %></p>
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+        <div class="card mb-4">
+          <div class="row g-0">
+            <div class="col-md-5">
+              <img src="https://image.tmdb.org/t/p/original/<%= data.poster_path %> " class="img-fluid rounded-start movie-poster" alt="...">
+            </div>
+            <div class="col-md-7">
+              <div class="card-body">
+                <p class="card-text"><%= data.overview %></p>
+                <% if (data.vote_average) { %>
+                    <div class="rating">
+                      <% for (var i = 0; i < Math.floor(data.vote_average); i++) { %>
+                        <i class="fa-solid fa-star gold"></i>
+                      <% } %>
+                      <% for (var i = 0; i < 6 - Math.floor(data.vote_average); i++) { %>
+                        <i class="fa-solid fa-star"></i>
+                      <% } %>
+                      <% if (data.vote_average === 6.5) { %>
+                          <i class="fa-solid fa-star-half gold"></i>
+                      <% }else{ %>
+                          <i class="fa-solid fa-star-half"></i>
+                      <% } %>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
-</div>
-<br>
-<h2>Reviews</h2>
-<% if(reviews && reviews.length > 0) { %>
-    <table>
-      <tr>
-          <th>Username</th>
-          <th>Rating</th>
-      </tr>
-      <% reviews.forEach(review => { %>
-      <tr>
-          <td><%= review.userName %></td>
-          <td><%= review.numberOfStars %></td>
-      </tr>
-      <% }); %>
-    </table>
-  <% } else { %>
-    <p>No reviews available.</p>
-  <% } %>
 
-</body>
+  <!-- Reviews Section -->
+  <div class="container review">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="glass sm">Reviews</h2>
+          <% data.reviews.forEach(function(review) { %>
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="card-title"><%= review.username %></h5>
+                <% if (review.numberofstars) { %>
+                  <div class="rating">
+                    <% for (var i = 0; i < Math.floor(review.numberofstars); i++) { %>
+                      <i class="fa-solid fa-star gold"></i>
+                    <% } %>
+                    <% for (var i = 0; i < 6 - Math.floor(review.numberofstars); i++) { %>
+                      <i class="fa-solid fa-star"></i>
+                    <% } %>
+                    <% if (review.numberofstars === 6.5) { %>
+                        <i class="fa-solid fa-star-half gold"></i>
+                    <% }else{ %>
+                        <i class="fa-solid fa-star-half"></i>
+                    <% } %>
+                </div>
+                <% } else { %>
+                  <p class="rating">No rating provided</p>
+                <% } %>
+                                <!-- Have at it cybersecurity -->
+                <p class="card-text"><%- review.text %></p>
+                <% if (!review.localreview) { %>
+                <div class="note">Sourced from TMBD</div>
+                <% } %>
+              </div>
+            </div>
+          <% }); %>
+      </div>
+    </div>
+  </div>
+  
 
   <%- include ('../partials/footer') %>
