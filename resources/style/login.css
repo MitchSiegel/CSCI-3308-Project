@@ -1,0 +1,32 @@
+.loginWrapper{
+    margin-left:30%;margin-right:30%;padding:50px;
+    margin-top:10%;
+    color:white;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.authorCredit {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px;
+    font-size:15px;
+    color:white;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+.authorCredit a {
+    color: grey;
+}
+@media screen and (min-width: 2000px) {
+    .loginWrapper{
+        margin-left:40%;margin-right:40%;padding:50px;
+    }
+}

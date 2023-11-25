@@ -1,89 +1,85 @@
 <%- include ('../partials/header') %>
 
 
-  <!-- [FEATURED MOVIES]-->
-  <div class="custom-container">
-    <p class="fs-3">Featured movies</p>
-    <div class="row row-cols-1 row-cols-md-3 g-4" id="movieCards">
-
-      <% for(var i = 0; i < 6; i++) { %>
-      <div class="featuredMovie col">
-        <div class="card mb-3" style="max-width: 450px;">
-
-          <div class="row g-0">
-            <div class="col-md-4">
-              <img src="<%= movies[i].posterimage %>" class="img-fluid rounded-start" alt="<%= movies[i].title %>"
-                onerror="console.error('Image load error:', '<%= movies[i].posterimage %>')">
-            </div>
-            <div class="col-md-8">
-              <div class="card-body">
-                <h2 class="card-title"><%= movies[i].title %></h2>
-                <p class="card-text"><%= movies[i].description %></p>
-                <!-- I'm just disabling this for now -->
-                <!-- <p class="card-text">Release Date: <%= movies[i].releasedate %></p> -->
-              </div>
+<!-- [FEATURED MOVIES]-->
+<div class="container">
+  <p class="text-center custom-title">Featured movies</p>
+  <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center" id="movieCards">
+    <% for(var i = 0; i < movies.length; i++) { %>
+      <div class="col">
+        <div class="card movie-card">
+          <img src="<%= movies[i].posterimage %>" class="card-img-top movie-image" alt="<%= movies[i].title %>"
+            onerror="console.error('Image load error:', '<%= movies[i].posterimage %>')">
+          <div class="card-body">
+            <h5 class="card-title"><%= movies[i].title %></h5>
+            <div class="button-container">
+              <button type="button" class="btn btn-outline-primary movie-btn" onclick='addReviewModal("<%= movies[i].title %>","<%= movies[i].movieid %>")'>Review</button>
+              <button type="button" class="btn btn-outline-primary movie-btn"><a href="/movie/<%= movies[i].movieid %>"
+                style="color: inherit; text-decoration: none;">Details</a></button>
             </div>
           </div>
         </div>
       </div>
-      <% } %>
-    </div>
+    <% } %>
   </div>
+</div>
 
-  <!-- Searching Feature -->
-  <div class="container mt-3">
-    <div class="row">
-      <div class="col-12 mb-3">
-        <p class="fs-3">Search movies</p>
-        <div class="input-group mb-3">
-          <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
-          <input type="text" class="form-control" id="movieSearch" placeholder="Search movies" aria-label="Search movies" oninput="search()">
-        </div>
-      </div>
-    </div>
-    <!-- Search results -->
-    <div id="movieResults">
-      <% movies.forEach(movie => { %>
-        <div class="movie-row">
-          <div class="movie-title"><%= movie.title %></div>
-          <div class="movie-actions">
-            <button type="submit" class="btn btn-outline-info" onclick='addReviewModal("<%= movie.title %>",1)'>Add a
-              review</button>
-            <button type="submit" class="btn btn-outline-dark"><a href="/movie/<%= movie.movieid %>" style="color: inherit; text-decoration: none;">View Details</a></button>
-          </div>
-        </div>
-        <% }) %>
-    </div>
-  </div>
-
-
-  <!-- Movie Rating Modal -->
-  <div class="modal fade" id="movieRatingModal" tabindex="-1" aria-labelledby="movieRatingModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="movieRatingModalLabel">Rate Movie</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p id="movieName">Movie Name</p>
-          <div id="starRating" class="star-rating">
-            <!-- Generate stars using JavaScript -->
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="reviewText">Review text (optional)</label>
-          <textarea class="form-control" id="reviewText" rows="3"></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="submitReview" class="btn btn-primary" disabled>Submit Review</button>
-        </div>
+<!-- Searching Feature -->
+<div class="container mt-3 search">
+  <div class="row">
+    <div class="col-12 mb-3">
+      <p class="text-center custom-title">Search Movies</p>
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <input type="text" class="form-control" id="movieSearch" placeholder="Search movies" aria-label="Search movies"
+          onkeyup="search()">
       </div>
     </div>
   </div>
+  <!-- Search results -->
+  <div id="movieResults">
+    <% movies.forEach(movie => { %>
+    <div class="movie-row">
+      <div class="movie-title"><%= movie.title %></div>
+      <div class="movie-actions">
+        <button type="submit" class="btn btn-info" onclick='addReviewModal("<%= movie.title %>","<%= movie.movieid %>")'>Add a
+          review</button>
+        <button type="submit" class="btn btn-success"><a href="/movie/<%= movie.movieid %>"
+            style="color: inherit; text-decoration: none;">View Details</a></button>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
 
-  <!-- move pop-up scripting -->
-  <script src="/js/home.js"></script>
+
+<!-- Movie Rating Modal -->
+<div class="modal fade movie-modal" id="movieRatingModal" tabindex="-1" aria-labelledby="movieRatingModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="movieRatingModalLabel">Rate Movie</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="movieName">Movie Name</p>
+        <div id="starRating" class="star-rating">
+          <!-- Generate stars using JavaScript -->
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="reviewText">Review text (optional)</label>
+        <textarea class="form-control" id="reviewText" rows="3"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="submitReview" class="btn btn-primary" disabled>Submit Review</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- move pop-up scripting -->
+<script src="/js/home.js"></script>
 
 <%- include ('../partials/footer') %>
