@@ -101,7 +101,7 @@ app.post('/register', async (req, res) => {
 });
 
 //test route for registering. this is a mock route and any user will be added and then removed from the database
-app.post("/testRegister", async (req, res) => {
+app.post('/testRegister', async (req, res) => {
     try {
         let username = req.body.username;
         let password = req.body.password;
@@ -200,7 +200,7 @@ app.post('/testLogin', async (req, res) => {
 });
 
 //movie search
-app.get("/search", async (req, res) => {
+app.get('/search', async (req, res) => {
     try{
         const movieName = req.query.movieName;
         //movie name is required
@@ -243,7 +243,7 @@ app.get('/', async (req, res) => {
 
 
 //above route rewrite to use TMDB & our database
-app.get("/movie/:id", async (req, res) => {
+app.get('/movie/:id', async (req, res) => {
     try{
         //first get the movie name from our database using our movie id, which is not the same as the TMDB id
         const movid = req.params['id'];
@@ -283,7 +283,7 @@ app.get("/movie/:id", async (req, res) => {
     }
 });
 
-app.get("/logout", async(req, res) => {
+app.get('/logout', async(req, res) => {
     req.session.destroy();
     res.redirect('/login');
 });

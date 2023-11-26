@@ -26,8 +26,8 @@
       // Add 6 full stars
       for (let i = 6; i >= 1; i--) {
         starRatingDiv.innerHTML += `
-      <input type="radio" id="star${i}" name="rating" value="${i}" />
-      <label id="label${i}" for="star${i}"></label>`;
+        <input type="radio" id="star${i}" name="rating" value="${i}" />
+        <label id="label${i}" for="star${i}"></label>`;
       }
 
       // Add event listener to enable submit button
@@ -88,6 +88,6 @@
       console.log(globalStarRating);
       console.log(globalMovieId);
       console.log(globalReviewText);
-	    let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
-	    fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
+	  let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
+	  fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
     }
