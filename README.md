@@ -37,6 +37,9 @@ SESSION_SECRET="super duper secret!!!!"
 
 #unsplash api key. This key is technically optional, but the login and register pages will simply display a non random, default image if this is not set
 UNSPLASH_ACCESS_KEY="key"
+
+#TMDB api key (https://www.themoviedb.org/)
+TMDB_API_KEY="key"
 ```
 
 How to run tests
