@@ -18,13 +18,16 @@
 | [Heroku](https://www.heroku.com/) | Hosting (maybe) |
 | [Bootstrap](https://getbootstrap.com/) | Frontend framework |
 | [Unsplash](https://unsplash.com/) | Image API for login and register page|
+| [TMDB](https://www.themoviedb.org/) | Review data API |
 
 todo 
 Prerequisites to run the application - Any software that needs to be installed to run the application
+quick list: node, npm, docker, git (optional but recommended - I mean who doesn't have git installed?)
 
 How to install and run the application (env variables, config file, etc)
 
 Get an API key from [Unsplash](https://unsplash.com/developers)
+Get an API key from [TMDB](https://www.themoviedb.org/settings/api)
 Sample .env file
 ```bash
 # database credentials
@@ -44,5 +47,7 @@ TMDB_API_KEY="key"
 
 How to run tests
 
-Link to deployed application
+Tests should automatically run when the application is built. To run tests manually, run `npm test` in the root directory of the project.
 
+Link to deployed application
+//TODO once hosting is set up
