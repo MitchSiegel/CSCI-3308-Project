@@ -154,7 +154,6 @@ app.post('/login', async (req, res) => {
             //only save username, not password (for obvious reasons)
             let user = { username: username };
             req.session.user = user;
-			console.log( 'Current user: ', user );
             req.session.save(() => {
                 res.redirect('/');
             });
@@ -225,8 +224,7 @@ app.get('/search', async (req, res) => {
 
 
 /* authenticated routes */
-//TODO add back auth middleware
-app.get('/', async (req, res) => {
+app.get('/', auth, async (req, res) => {
     try
     {
         //Only send the first 6 movies
@@ -295,7 +293,6 @@ module.exports = app.listen(3000, () => {
 });
 
 app.post('/addReview', auth, async (req, res) => {
-	console.log(req.body);
     try {
         if(!req.body.review || !req.body.rating || !req.body.id){
             return res.status(400).send({ message: 'Invalid input' });
@@ -308,7 +305,7 @@ app.post('/addReview', auth, async (req, res) => {
 		  // break data into variables
 		  // Push the variables to the reviews and MovieReviews tables
 		  //this part handles adding the review to the database.
-		  let addReview = `INSERT INTO reviews (movieId, numberOfStars, text, userName) VALUES (${req.body.id}, ${req.body.rating}, ${req.body.review}, ${req.session.user.username});`; // might need to add TRUE for localReview bool
+		  let addReview = `INSERT INTO reviews (movieid, numberofstars, text, username) VALUES (${req.body.id}, ${req.body.rating}, '${req.body.review}', '${req.session.user.username}');`; // might need to add TRUE for localReview bool
 		  await db.query(addReview);
 	
 		  //temporary end request
@@ -339,7 +336,6 @@ async function getBg(){
     //convert image to base64 for quicker rendering on the client (but still credit the author)
     const data = await response.json();
     const base64 = await urlToBase(data.results[0].urls.full);
-    console.log({url: data.results[0].urls.full, name: data.results[0].user.name, link: data.results[0].user.links.html, default: false});
     return {base64: base64, url: data.results[0].urls.full, name: data.results[0].user.name, link: data.results[0].user.links.html, default: false};
 }
 
