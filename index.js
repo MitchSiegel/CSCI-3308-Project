@@ -154,6 +154,7 @@ app.post('/login', async (req, res) => {
             //only save username, not password (for obvious reasons)
             let user = { username: username };
             req.session.user = user;
+			console.log( 'Current user: ', user );
             req.session.save(() => {
                 res.redirect('/');
             });
@@ -299,16 +300,20 @@ app.post('/addReview', auth, async (req, res) => {
         if(!req.body.review || !req.body.rating || !req.body.id){
             return res.status(400).send({ message: 'Invalid input' });
         }
-        // look at the console log and see data
-        // break data into variables
-        // Push the variables to the reviews and MovieReviews tables
-        //this part handles adding the review to the database.
-        let addReview = `INSERT INTO reviews (numberOfStars, text, userName) VALUES (${req.body.rating}, ${req.body.review}, ${req.session.user.username});`
-
-        //you'll also need the movie id from the movie page to link the review to the movie
-
-        //temporary end request
-        res.end("Review added");
+		else if(!req.session.user.username){
+			return res.status(400).send({ message: 'Login to review' });
+		}
+		else{
+	      // look at the console log and see data
+		  // break data into variables
+		  // Push the variables to the reviews and MovieReviews tables
+		  //this part handles adding the review to the database.
+		  let addReview = `INSERT INTO reviews (movieId, numberOfStars, text, userName) VALUES (${req.body.id}, ${req.body.rating}, ${req.body.review}, ${req.session.user.username});`; // might need to add TRUE for localReview bool
+		  await db.query(addReview);
+	
+		  //temporary end request
+		  res.end("Review added");
+		}
     }
     catch {
         console.error('Error during review submission');
