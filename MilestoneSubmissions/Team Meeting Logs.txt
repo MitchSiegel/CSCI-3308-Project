@@ -27,3 +27,22 @@ Week of 11/13 Team Meeting for Project
 -Planned on potential extra meetings through the week through our discord communication.
 -Everyone planned on attending recitation on friday, extra credit would be very useful and it would be another good chance to get work done so we have the project done in time for the extra credit.
 -Added assignees to all of the project board stories and such, everything now assigned.
+
+Week of 11/27 Team Meeting for project
+
+-Mitch redid login and register page over break
+-Also created movies page, worked on that with ethan
+-Look to what to do the next weeks
+-We need to be able to add reviews to database of home page
+-A few more bugs that need to be fixed along the way
+-Work out what we need for the presentation, is the use case diagram done? Yes we confirmed that it is done
+-Get the project done by Thursday for the 5 percent extra credit.
+-Talked about the presentation slot, 9am recitation next friday. Make sure we all show up to the recitations.
+-Break down the review backend work to get it done by Thursday, who can get it done by thursday. Ian can work on it, gonna work on it on tuesday.
+-Issue with login? Current;y there is an issue with it so Mitch had to temporarily change it.
+-Ian added a login and logout button in the header so one can log out anywhere. Ian wants to add a variable so it can be only one button at a time, so it either says login or logout depending on one's current status.
+-Mitch made quite a few changes with the UI over the break. Different backgrounds depending on refresh, all related to movies.Could be a movie theater background reels, etc. Made the main page blue, got rid of description to make it look more clean, made borders better, added details page, details page pulls form the movie database in order to create the page. Added some temporary reviews.
+-Another to do for the week would be work on the powerpoint for the week. Ethan and Caleb can work on it.
+-Maybe we should add some of our own reviews this week in order to make it look better for presentation. Just add reviews for one movie for a demo, don’t do that menu. We could also do a demo of the review system during the presentation.
+-We need to reorganize all of our files for this week to make sure it's ready to submit on thursday, add a review needs to be working by thursday 100%.
+
