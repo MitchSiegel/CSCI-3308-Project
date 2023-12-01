@@ -60,7 +60,6 @@
       let query = await fetch(`/search?movieName=${input}`);
       searchTimeout = true; // Prevents search from being called again
       let result = await query.json();
-      console.log(result);
       if(result.movies.length != 0 ){
         document.getElementById('movieResults').innerHTML = '';
         result.movies.forEach(movie => {
@@ -68,8 +67,8 @@
           <div class="movie-row">
             <div class="movie-title">${movie.title}</div>
             <div class="movie-actions">
-              <button class="btn btn-outline-info" onclick='addReviewModal("${movie.title = movie.title.replace(/'/g, '&apos;')}",${movie.movieid})'>Add a review</button>
-              <button type="submit" class="btn btn-outline-dark"><a href="/movie/${movie.movieid}" style="color: inherit; text-decoration: none;">View Details</a></button>
+              <button class="btn btn-info" onclick='addReviewModal("${movie.title = movie.title.replace(/'/g, '&apos;')}",${movie.movieid})'>Add a review</button>
+              <button type="submit" class="btn btn-success" onclick="location.href='/movie/${movie.movieid}';">View Details</button>
             </div>
           </div>`;
         });
@@ -85,9 +84,6 @@
     }
 
     function submitReview() {
-      //console.log(globalStarRating);
-      //console.log(globalMovieId);
-      //console.log(globalReviewText);
-	  let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
-	  fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
+	    let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
+	    fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
     }
