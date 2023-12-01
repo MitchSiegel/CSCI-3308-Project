@@ -80,7 +80,7 @@
       setTimeout(() => {
         searchTimeout = false;//allow search again
         if(input != movieInput.value) search(); //if the input has changed, search again
-      }, 3000);
+      }, 1000);
     }
 
     function submitReview() {
