@@ -2,26 +2,16 @@ body {
     font-family: 'Open Sans', sans-serif;
   }
   .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* This adds a subtle shadow to your card */
-    transition: 0.3s; /* Adds a transition effect when hovering over the card */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
   }
   .card-img-top {
-    border-top-left-radius: 0.5rem; /* Rounds the top-left corner of the image */
-    border-top-right-radius: 0.5rem; /* Rounds the top-right corner of the image */
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
   }
   .card-body h5 {
-    font-weight: 600; /* Makes the title a little bolder */
+    font-weight: 600;
   }
-
-  /* .card {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto; 
-    box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
-    border-radius: 10px;
-    background-color: #12263a; 
-    color: #ffffff;
-  } */
   .card{
     color:white;
     backdrop-filter: blur(16px) saturate(180%);
