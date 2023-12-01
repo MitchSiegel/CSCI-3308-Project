@@ -14,8 +14,7 @@
             <h5 class="card-title"><%= movies[i].title %></h5>
             <div class="button-container">
               <button type="button" class="btn btn-outline-primary movie-btn" onclick='addReviewModal("<%= movies[i].title %>","<%= movies[i].movieid %>")'>Review</button>
-              <button type="button" class="btn btn-outline-primary movie-btn"><a href="/movie/<%= movies[i].movieid %>"
-                style="color: inherit; text-decoration: none;">Details</a></button>
+              <button type="button" class="btn btn-outline-primary movie-btn" onclick="location.href='/movie/<%= movies[i].movieid %>';">Details</button>
             </div>
           </div>
         </div>
@@ -44,8 +43,7 @@
       <div class="movie-actions">
         <button type="submit" class="btn btn-info" onclick='addReviewModal("<%= movie.title %>","<%= movie.movieid %>")'>Add a
           review</button>
-        <button type="submit" class="btn btn-success"><a href="/movie/<%= movie.movieid %>"
-            style="color: inherit; text-decoration: none;">View Details</a></button>
+        <button type="submit" class="btn btn-success" onclick="location.href='/movie/<%= movie.movieid %>';">View Details</button>
       </div>
     </div>
     <% }) %>

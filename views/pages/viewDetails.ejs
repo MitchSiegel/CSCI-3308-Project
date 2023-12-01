@@ -55,7 +55,7 @@
             <div class="card mb-3">
               <div class="card-body">
                 <h5 class="card-title"><%= review.username %></h5>
-                <% if (review.numberofstars) { %>
+                <% if (review.numberofstars && review.numberofstars != 0) { %>
                   <div class="rating">
                     <% for (var i = 0; i < Math.floor(review.numberofstars); i++) { %>
                       <i class="fa-solid fa-star gold"></i>
