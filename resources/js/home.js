@@ -84,6 +84,7 @@
     }
 
     function submitReview() {
+      console.log(globalStarRating);
 	    let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
 	    fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
     }

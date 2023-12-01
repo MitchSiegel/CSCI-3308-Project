@@ -394,7 +394,7 @@ async function dumpReviews(){
 
 //dump reviews to movies reationship from the database
 async function dumpMovieReviews(){
-    const reviews = await db.query(`SELECT * FROM movieReviews;`);
+    const reviews = await db.query(`SELECT * FROM reviews WHERE movieId = '1';`);
     console.log(reviews);
     return reviews;
 }
