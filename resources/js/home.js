@@ -79,7 +79,7 @@
       //it will also research if input changes during that time to avoid a weird feeling
       setTimeout(() => {
         searchTimeout = false;//allow search again
-        if(input != movieInput.value) search(); //if the input has changed, search again
+        //if(input != movieInput.value) search(); //if the input has changed, search again
       }, 1000);
     }
 
