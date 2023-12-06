@@ -21,10 +21,18 @@
 </style>
 <% } %>
 
+
+
+
 <main>
   <div class="loginWrapper">
         <!-- Start of Registration Form -->
         <h1>Login</h1>
+        <% if(typeof error != 'undefined')  { %>
+          <div class="alert alert-danger" role="alert">
+              <%= error %>
+          </div>
+        <% } %>
         <form action="/login" method="POST">
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>

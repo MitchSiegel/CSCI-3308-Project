@@ -1,9 +1,14 @@
 <%- include ('../partials/header') %>
 
 
+
 <!-- [FEATURED MOVIES]-->
 <div class="container">
   <p class="text-center custom-title">Featured movies</p>
+  <!-- Added review popup -->
+<div hidden id="reviewAdded" class="alert alert-primary" role="alert">
+      Review added successfully!  
+</div>
   <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center" id="movieCards">
     <% for(var i = 0; i < movies.length; i++) { %>
       <div class="col">

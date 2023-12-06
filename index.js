@@ -376,7 +376,13 @@ async function getReviews(movieObject) {
         delete data.results[i].author_details;
         delete data.results[i].id;
         delete data.results[i].created_at; //only need updated_at
-        data.results[i].text = data.results[i].content.replace(/\r\n|\r|\n/g, "<br>").replace(/\*\*(.*?)\*\*/g, "<b>$1</b>"); //markdown to html
+        data.results[i].text = data.results[i].content
+        .replace(/https?:\/\/[^\s]+/g, '<a href="$&" target="_blank">$&</a>') // Wraps https:// URLs with <a href="https://*">https://*</a>
+        .replace(/\r\n|\r|\n/g, "<br>")
+        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // Replaces **text** with <b>text</b>
+        .replace(/\*(.*?)\*/g, "<b>$1</b>") // Replaces *text* with <b>text</b>
+        .replace(/_([^_]+)_/g, "<em>$1</em>"); // Replaces _text_ with <em>text</em>
+
         //I certainly hope nobody tries to inject html into their review...
     }
     return data.results;

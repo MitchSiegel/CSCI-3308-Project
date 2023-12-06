@@ -87,4 +87,9 @@
       console.log(globalStarRating);
 	    let object = {review: globalReviewText, rating: globalStarRating, id: globalMovieId};
 	    fetch("/addReview", {method: "POST", body: JSON.stringify(object), headers: {"Content-Type": "application/json" } });
+      document.querySelector("#reviewAdded").removeAttribute("hidden");
+
+      setTimeout(function(){
+        document.querySelector("#reviewAdded").setAttribute("hidden", "true");
+      }, 3000);
     }
