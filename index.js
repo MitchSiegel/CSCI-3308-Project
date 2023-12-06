@@ -158,8 +158,7 @@ app.post('/login', async (req, res) => {
                 res.redirect('/');
             });
         } else {
-
-            res.render('pages/login', { error: 'Incorrect username or password' });
+            res.render('pages/login', { error: 'Incorrect username or password', bg: cachedBGImage });
         }
 
     }

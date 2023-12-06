@@ -38,6 +38,9 @@ body {
 .glass.md{
     font-size:2em;
 }
+.glass.sm2{
+  font-size:1em;
+}
 .glass.sm{
     font-size:2em;
     border-radius: 10px;
@@ -50,12 +53,11 @@ body {
     bottom: 0;
     right: 0;
     padding: 10px;
-    font-size:10px;
-    color:grey;
+    font-size:15px;
+    color:white;
 }
 .review .rating{
   position: absolute;
-    background-color: black;
     top: 0;
     right: 0;
     margin: 10px;
