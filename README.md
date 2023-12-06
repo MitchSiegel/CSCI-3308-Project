@@ -10,6 +10,12 @@ Our website is a movie review site very similar to IMDB and other sites however 
 - [Mitch Siegel](https://github.com/MitchSiegel)
 - [Caleb Schroder](https://github.com/CalebSchroder1)
 
+# Hosting
+The website is hosted at:
+	http://recitation-15-team-04.eastus.cloudapp.azure.com:3000
+There is a screenshot of the website hosted located at:
+	./MilestoneSubmissions/lab_13_hosting_screenshot.png
+
 # Technology Stack
 | Stack | Use |
 | --- | --- | 
