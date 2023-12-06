@@ -51,7 +51,7 @@ SESSION_SECRET="super duper secret!!!!"
 #unsplash api key. This key is technically optional, but the login and register pages will simply display a non-random, default image if this is not set
 UNSPLASH_ACCESS_KEY="key"
 
-#TMDB api key (https://www.themoviedb.org/)
+#TMDB API key (https://www.themoviedb.org/)
 TMDB_API_KEY="key"
 ```
 
@@ -59,5 +59,5 @@ How to run tests
 
 Tests should automatically run when the application is built. To run tests manually, run `npm test` in the root directory of the project.
 
-Link to deployed application
-//TODO once hosting is set up
+Check out our deployed application [here](http://recitation-15-team-04.eastus.cloudapp.azure.com:3000) (Link not always hosted)
+
