@@ -24,6 +24,11 @@
   <div class="loginWrapper">
         <!-- Start of Registration Form -->
         <h1>Register</h1>
+        <% if(typeof error != 'undefined')  { %>
+          <div class="alert alert-danger" role="alert">
+              <%= error %>. <a href="/login">Login here.</a>
+          </div>
+        <% } %>
         <form action="/register" method="POST">
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>

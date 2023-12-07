@@ -83,6 +83,7 @@ app.get('/register', async(req, res) => {
     }
 });
 
+let cachedBGImage;
 // Register
 app.post('/register', async (req, res) => {
     //hash the password using bcrypt library
@@ -95,8 +96,14 @@ app.post('/register', async (req, res) => {
         res.redirect('/login')
     }
     catch (error) {
-        console.error('Error during registration');
-        res.redirect('/register');
+        console.log(error);
+        if(error.detail && error.detail.includes('already exists')){
+            console.log(cachedBGImage)
+            res.render('pages/register', { error: 'Username already exists', bg: cachedBGImage });
+        }else{
+            console.error('Error during registration:', error);
+            res.status(500).send({ message: 'Error during registration' });
+        }
     }
 });
 
@@ -128,7 +135,7 @@ app.post('/testRegister', async (req, res) => {
     }
 });
 
-let cachedBGImage;
+
 app.get('/login', async(req, res) => {
     //get background image (unless we already have it cached)
     if(!cachedBGImage){
