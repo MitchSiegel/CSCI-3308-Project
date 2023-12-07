@@ -267,8 +267,21 @@ app.get('/movie/:id', async (req, res) => {
 
         const pullReviews = (executedMovie.length > 0) ? false : true; //if we have reviews, don't pull them from TMDB
 
+
         movieDetails.reviews = (executedMovie.length == 0) ? await getReviews(movieDetails) : executedMovie;
-        //render the page
+        //apparently we need to re convert from MD to HTML{
+        if(!pullReviews){
+            for(let i = 0; i < movieDetails.reviews.length; i++){
+                movieDetails.reviews[i].text = movieDetails.reviews[i].text
+                .replace(/https?:\/\/[^\s]+/g, '<a href="$&" target="_blank">$&</a>') // Wraps https:// URLs with <a href="https://*">https://*</a>
+                .replace(/\r\n|\r|\n/g, "<br>")
+                .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>") // Replaces **text** with <b>text</b>
+                .replace(/\*(.*?)\*/g, "<b>$1</b>") // Replaces *text* with <b>text</b>
+                .replace(/_([^_]+)_/g, "<em>$1</em>"); // Replaces _text_ with <em>text</em>
+    
+            }
+        }
+
         res.render('pages/viewDetails', { data: movieDetails, bg: bgUrl });
 
         //if we pulled, add those reviews to the database
