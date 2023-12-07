@@ -46,3 +46,18 @@ Week of 11/27 Team Meeting for project
 -Maybe we should add some of our own reviews this week in order to make it look better for presentation. Just add reviews for one movie for a demo, don’t do that menu. We could also do a demo of the review system during the presentation.
 -We need to reorganize all of our files for this week to make sure it's ready to submit on thursday, add a review needs to be working by thursday 100%.
 
+Week of 12/4 Team Meeting for Project
+
+-Finishing everything this week
+-Meet in person to practice presentation, meet at 12 pm on Thursday, try and reserve a room in case building or else meet at engineering center.
+-Video demo, Ethan can do it easily
+-Finish project report for next tuesday, add contribution etc, don't worry about not having it done by friday
+-Finish representation before our in person meetup on thursday, try and find ways to make sure the entire presentation  reaches 10 minutes. 
+-All coding is done, nothing left to do, polishing done
+-What to do for the video of the website, mp4, youtube video unlisted, Ethan will figure it out.
+-Change presentation for less text, and more bullets points and images
+-Who talks on which slides and how we are going to get it to be around 10 minutes. 
+-How we will set up demo and who will do that, what should we show on the website in order to be concise but also going into detail
+-Make sure everyone added their contribution to project report soon
+
+
