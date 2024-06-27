@@ -11,8 +11,16 @@ const db = pgp(dbConfig);
 
 db.connect()
     .then(obj => {
-        console.log('Connected to the database:', obj.connected);
-        obj.done(); // success, release the connection
+        console.log('Connected to the database');
+
+        return obj.any('SELECT NOW()')
+            .then(data => {
+                console.log('Current Time:', data);
+                obj.done(); // success, release the connection
+            })
+            .catch(error => {
+                console.log('ERROR:', error.message || error);
+            });
     })
     .catch(error => {
         console.log('ERROR:', error.message || error);
