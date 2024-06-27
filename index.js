@@ -44,12 +44,11 @@ app.use(compression()); // compress all responses (super basic compression)
 
 // database configuration
 const dbConfig = {
-    host: 'db', // the database server
-    port: 5432, // the database port
-    database: process.env.POSTGRES_DB, // the database name
-    user: process.env.POSTGRES_USER, // the user account to connect with
-    password: process.env.POSTGRES_PASSWORD, // the password of the user account
-};
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+}
 
 //init pgp with our db config
 const db = pgp(dbConfig);
@@ -307,8 +306,9 @@ app.get('/logout', async(req, res) => {
 });
 
 //listen for requests
-module.exports = app.listen(3000, () => {
-    console.log('Listening on port 3000');
+const PORT = process.env.PORT || 3000;
+module.exports = app.listen(PORT, () => {
+    console.log('Listening on port ' + PORT);
 });
 
 app.post('/addReview', auth, async (req, res) => {
